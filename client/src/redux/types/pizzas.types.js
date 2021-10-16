@@ -1,0 +1,10 @@
+const LIST = {
+  REQUEST: "PIZZAS_LIST_REQUEST",
+  SUCCESS: "PIZZAS_LIST_SUCCESS",
+  ERROR: "PIZZAS_LIST_ERROR",
+  RESET: "PIZZAS_LIST_RESET",
+};
+
+export const PizzaActionTypes = {
+  PIZZAS_LIST: LIST,
+};
