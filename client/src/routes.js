@@ -1,6 +1,4 @@
-import Home from "./views/Home";
-import Cart from "./views/Cart";
-import Login from "./views/Login";
+import { Home, Cart, Login } from "./views";
 
 export const routes = [
   { path: "/home", component: Home, exact: true },
