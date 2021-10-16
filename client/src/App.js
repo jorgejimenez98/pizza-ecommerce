@@ -2,8 +2,8 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import MainLayout from "./layouts/MainLayout";
-import ScrollTop from "./components/ScrollTop";
-import Login from "./views/Login";
+import { ScrollTop } from "./containers";
+import { Login } from "./views";
 
 function App() {
   return (
