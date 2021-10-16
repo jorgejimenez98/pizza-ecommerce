@@ -1,6 +1,6 @@
 import React from "react";
 import { routes } from "../routes";
-import NavBar from "../components/NavBar";
+import { NavBar } from "../containers";
 import { Switch, Route, Redirect } from "react-router-dom";
 
 function MainLayout() {
