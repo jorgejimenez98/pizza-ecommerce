@@ -1,24 +1,17 @@
 const express = require("express");
 
-// Models
-const Pizzas = require("./models/pizzaModel");
+// Root Imports
+const PizzaRoute = require("./routes/pizzasRoutes");
 
 const app = express();
 const port = process.env.PORT || 5000;
+const db = require("./db");
 
 app.use(express.json());
 
-app.get("/", (req, res) => res.send(`Server Working!`));
+// Routes
+app.use("/api/pizzas/", PizzaRoute);
 
-// PIZZA ROUTES
-app.get("/getPizzas", (req, res) => {
-  Pizzas.find({}, (error, docs) => {
-    if (error) {
-      console.log(`Error loading pizzas ${error}`);
-    } else {
-      res.send(docs);
-    }
-  });
-});
+app.get("/", (req, res) => res.send(`Server Working!`));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}`));
