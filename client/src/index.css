@@ -14,3 +14,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.image-pizza {
+  height: 250px;
+  width: 250px;
+}
+
+.pointer {
+  cursor: pointer;
+}
