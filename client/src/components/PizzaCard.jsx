@@ -20,12 +20,11 @@ export default function PizzaCard({ pizza }) {
   };
 
   return (
-    <Card>
+    <Card className="shadow-lg p-3 mb-5 bg-white rounded">
       <h6 className="mt-3">{pizza.name}</h6>
 
       <ImageModal
-        title={pizza.name}
-        image={pizza.image}
+        pizza={pizza}
         open={openImage}
         handleClose={handleClose}
       />
@@ -70,7 +69,9 @@ export default function PizzaCard({ pizza }) {
                 onChange={(e) => setQuantity(e.target.value)}
               >
                 {[...Array(10).keys()].map((x, i) => (
-                  <MenuItem value={i + 1} key={i}>{i + 1}</MenuItem>
+                  <MenuItem value={i + 1} key={i}>
+                    {i + 1}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -81,13 +82,13 @@ export default function PizzaCard({ pizza }) {
       <CardActions>
         {/* FOOTER */}
         <Row className="w-100">
-          <Col md="6" sm="6">
+          <Col md="6" sm="12">
             <h6>Price: {pizza.prices[0][varient] * quantity} cup</h6>
           </Col>
-          <Col md="6" sm="6">
+          <Col md="6" sm="12">
             <div className="text-center">
               <Button variant="contained" color="success">
-                ADD TO CART
+                ADD
               </Button>
             </div>
           </Col>
