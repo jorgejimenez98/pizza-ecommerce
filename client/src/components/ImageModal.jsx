@@ -6,7 +6,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
-import { CardMedia } from "@mui/material";
+import { CardContent, CardMedia, Typography } from "@mui/material";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -46,21 +46,26 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function ImageModal({ image, title, open, handleClose }) {
+export default function ImageModal({ pizza, open, handleClose }) {
   return (
     <div>
       <BootstrapDialog onClose={handleClose} open={open}>
         <BootstrapDialogTitle onClose={handleClose}>
-          {title}
+          {pizza.name}
         </BootstrapDialogTitle>
         <DialogContent dividers>
           <CardMedia
             component="img"
             height="400"
             with="400"
-            image={image}
+            image={pizza.image}
             alt="pizza"
           />
+          <CardContent>
+            <Typography variant="body2" color="text.secondary">
+              {pizza.description}
+            </Typography>
+          </CardContent>
         </DialogContent>
       </BootstrapDialog>
     </div>
