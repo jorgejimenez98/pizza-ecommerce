@@ -7,7 +7,7 @@ export const getPizzasList = () => async (dispatch) => {
       type: PizzaActionTypes.PIZZAS_LIST.REQUEST,
     });
 
-    const { data } = await axios.get(`/api/getPizzas/`, config);
+    const { data } = await axios.get(`/api/pizzas/getPizzas/`);
 
     dispatch({
       type: PizzaActionTypes.PIZZAS_LIST.SUCCESS,
