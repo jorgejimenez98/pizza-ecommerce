@@ -1,0 +1,24 @@
+{
+  "name": "pizza-delivery",
+  "version": "1.0.0",
+  "description": "Pizza Delivery App Example",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jorgejimenez98/pizza-ecommerce.git"
+  },
+  "author": "Jorge Jimenez Diaz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jorgejimenez98/pizza-ecommerce/issues"
+  },
+  "homepage": "https://github.com/jorgejimenez98/pizza-ecommerce#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.13"
+  }
+}
