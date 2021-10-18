@@ -42,3 +42,9 @@ code {
   background-size: cover !important;
   height: 100vh;
 }
+
+.center-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
