@@ -1,6 +1,6 @@
-const moongose = require("moongose");
+const mongoose = require("mongoose");
 
-const userSchema = moongose.Schema(
+const userSchema = mongoose.Schema(
   {
     name: { type: String, require },
     email: { type: String, require },
@@ -12,4 +12,4 @@ const userSchema = moongose.Schema(
   }
 );
 
-module.exports = moongose.module("users", userSchema);
+module.exports = mongoose.model("users", userSchema);
