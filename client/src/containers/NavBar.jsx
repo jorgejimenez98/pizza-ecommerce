@@ -1,9 +1,11 @@
 import React from "react";
-import { Navbar, Nav } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { Navbar, Nav, Badge } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { BiCart } from "react-icons/bi";
 
 function NavBar() {
+  const { cartItems } = useSelector((state) => state.cart.cartItems);
   return (
     <Navbar
       bg="light"
@@ -22,7 +24,8 @@ function NavBar() {
           </LinkContainer>
           <LinkContainer to="/cart">
             <Nav.Link>
-              <BiCart size={24} /> Cart
+              <BiCart size={24} /> Cart{" "}
+              <Badge color="info">{cartItems.length}</Badge>
             </Nav.Link>
           </LinkContainer>
         </Nav>
