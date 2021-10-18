@@ -23,3 +23,9 @@ code {
 .pointer {
   cursor: pointer;
 }
+
+.cart-items-list {
+  width: 90%;
+  margin: auto;
+  border-radius: 20px;
+}
