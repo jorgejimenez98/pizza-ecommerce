@@ -26,13 +26,15 @@ function Home() {
       ) : errorList ? (
         <Message message={errorList} type="error" />
       ) : (
-        <div className="row">
-          {pizzas.map((pizza, ind) => (
-            <div className="col-md-4" key={ind}>
-              <PizzaCard pizza={pizza} />;
-            </div>
-          ))}
-        </div>
+        pizzas && (
+          <div className="row">
+            {pizzas.map((pizza, ind) => (
+              <div className="col-md-4" key={ind}>
+                <PizzaCard pizza={pizza} />;
+              </div>
+            ))}
+          </div>
+        )
       )}
     </div>
   );
