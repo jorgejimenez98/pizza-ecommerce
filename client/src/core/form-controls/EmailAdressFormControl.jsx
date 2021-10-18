@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 
 function EmailAdressFormControl({ formik }) {
   return (
-    <Form.Group className="mb-3">
+    <Form.Group className="mb-4 mt-4">
       <Form.Label className="float-left">Email address</Form.Label>
       <Form.Control
         type="email"
