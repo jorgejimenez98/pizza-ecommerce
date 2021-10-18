@@ -11,10 +11,14 @@ import {
   Tooltip,
 } from "@mui/material";
 
-import { Delete, Add, Remove, ShoppingCart } from "@material-ui/icons";
+import { Delete, ShoppingCart } from "@material-ui/icons";
+import CartListTextItem from "./CartListTextItem";
 
-export default function CartItemsList({ cartItems, deleteItem }) {
-  console.log(cartItems);
+export default function CartItemsList({
+  cartItems,
+  deleteItem,
+  addOrSubstract,
+}) {
   return (
     <React.Fragment>
       <h1 className="text-center text-muted">
@@ -35,15 +39,10 @@ export default function CartItemsList({ cartItems, deleteItem }) {
                 primary={`${pizza.name} (${pizza.varient})`}
                 className="pl-3"
                 secondary={
-                  <React.Fragment>
-                    <span>
-                      Price: {pizza.quantity} * {pizza.prices[0][pizza.varient]}{" "}
-                      = {pizza.price}
-                      <br />
-                      Quantity <Remove className="pointer" /> 2{" "}
-                      <Add className="pointer" />
-                    </span>
-                  </React.Fragment>
+                  <CartListTextItem
+                    pizza={pizza}
+                    addOrSubstract={addOrSubstract}
+                  />
                 }
               />
               <ListItemSecondaryAction>
