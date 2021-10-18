@@ -1,0 +1,12 @@
+import { SET_SNACKBAR } from "../types/snackbar.types";
+
+export const setSnackbar = (
+  snackbarOpen,
+  snackbarType = "success",
+  snackbarMessage = ""
+) => ({
+  type: SET_SNACKBAR,
+  snackbarOpen,
+  snackbarType,
+  snackbarMessage,
+});
