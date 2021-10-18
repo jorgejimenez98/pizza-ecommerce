@@ -10,14 +10,12 @@ function Cart() {
   };
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-8">
-          <CartItemsList cartItems={cartItems} deleteItem={deleteItem} />
-        </div>
-        <div className="col-md-4">
-          <SubtotalPrice />
-        </div>
+    <div className="row pl-4 pr-4">
+      <div className="col-md-6">
+        <CartItemsList cartItems={cartItems} deleteItem={deleteItem} />
+      </div>
+      <div className="col-md-6">
+        <SubtotalPrice cartItems={cartItems} />
       </div>
     </div>
   );
