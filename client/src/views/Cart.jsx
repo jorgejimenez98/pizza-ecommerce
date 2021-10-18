@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart } from "../redux/actions/cart.actions";
+import { addToCart, removeFromCart } from "../redux/actions/cart.actions";
 import { CartItemsList, SubtotalPrice } from "../components";
 
 function Cart() {
@@ -8,7 +8,7 @@ function Cart() {
   const { cartItems } = useSelector((state) => state.cart.cartItems);
 
   const deleteItem = (id) => {
-    console.log("Delete Item", id);
+    dispatch(removeFromCart(id));
   };
 
   const addOrSubstract = (isAdd, pizza, quantity, varient) => {
