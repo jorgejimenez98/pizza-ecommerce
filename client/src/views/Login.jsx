@@ -1,10 +1,25 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { Form } from "react-bootstrap";
-import { Avatar, Button, CssBaseline, Box } from "@mui/material";
+import { Avatar, Button, CssBaseline } from "@mui/material";
 import LocalPizzaOutlinedIcon from "@material-ui/icons/LocalPizzaOutlined";
+// Formik
+import { useFormik } from "formik";
+import { initialLoginValues, loginSchema } from "../core/formik-validations";
+// Form Controls
+import {
+  EmailAdressFormControl,
+  PasswordFormControl,
+} from "../core/form-controls";
 
 export default function Login() {
+  const formik = useFormik({
+    initialValues: initialLoginValues,
+    validationSchema: loginSchema,
+    onSubmit: (values) => {
+      console.log("Login", values);
+    },
+  });
+
   return (
     <div className="login center-form">
       <CssBaseline />
@@ -14,18 +29,9 @@ export default function Login() {
             <LocalPizzaOutlinedIcon />
           </Avatar>
           <h3>Sign in</h3>
-          <Box component="form" noValidate sx={{ mt: 1 }}>
-            <Form>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label className="float-left">Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label className="float-left">Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
-              </Form.Group>
-            </Form>
+          <form onSubmit={formik.handleSubmit}>
+            <EmailAdressFormControl formik={formik} />
+            <PasswordFormControl formik={formik} />
             <Button
               type="submit"
               fullWidth
@@ -39,7 +45,7 @@ export default function Login() {
                 {"Don't have an account? Sign Up"}
               </Link>
             </div>
-          </Box>
+          </form>
         </div>
       </div>
     </div>
