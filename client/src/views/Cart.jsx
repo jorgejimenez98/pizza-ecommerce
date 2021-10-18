@@ -21,16 +21,24 @@ function Cart() {
 
   return (
     <div className="row pl-4 pr-4">
-      <div className="col-md-6">
-        <CartItemsList
-          cartItems={cartItems}
-          deleteItem={deleteItem}
-          addOrSubstract={addOrSubstract}
-        />
-      </div>
-      <div className="col-md-6">
-        <SubtotalPrice cartItems={cartItems} />
-      </div>
+      {cartItems.length === 0 ? (
+        <div className="mt-3 m-auto">
+          <h3 className="text-muted ">There are no pizzas in the cart</h3>
+        </div>
+      ) : (
+        <React.Fragment>
+          <div className="col-md-6">
+            <CartItemsList
+              cartItems={cartItems}
+              deleteItem={deleteItem}
+              addOrSubstract={addOrSubstract}
+            />
+          </div>
+          <div className="col-md-6">
+            <SubtotalPrice cartItems={cartItems} />
+          </div>
+        </React.Fragment>
+      )}
     </div>
   );
 }
