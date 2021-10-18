@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/actions/cart.actions";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -11,6 +13,8 @@ import Select from "@mui/material/Select";
 import ImageModal from "./ImageModal";
 
 export default function PizzaCard({ pizza }) {
+  const dispatch = useDispatch();
+
   const [varient, setVarient] = useState("small");
   const [quantity, setQuantity] = useState(1);
   const [openImage, setopenImage] = useState(false);
@@ -19,15 +23,15 @@ export default function PizzaCard({ pizza }) {
     setopenImage(false);
   };
 
+  const addPizzaToCard = () => {
+    dispatch(addToCart(pizza, quantity, varient));
+  };
+
   return (
     <Card className="shadow-lg p-3 mb-5 bg-white rounded">
       <h6 className="mt-3">{pizza.name}</h6>
 
-      <ImageModal
-        pizza={pizza}
-        open={openImage}
-        handleClose={handleClose}
-      />
+      <ImageModal pizza={pizza} open={openImage} handleClose={handleClose} />
 
       {/* Pizza Image */}
       <img
@@ -87,7 +91,11 @@ export default function PizzaCard({ pizza }) {
           </Col>
           <Col md="6" sm="12">
             <div className="text-center">
-              <Button variant="contained" color="success">
+              <Button
+                variant="contained"
+                color="success"
+                onClick={addPizzaToCard}
+              >
                 ADD
               </Button>
             </div>
