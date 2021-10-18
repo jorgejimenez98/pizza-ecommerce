@@ -3,7 +3,6 @@ import * as yup from "yup";
 export const initialRegisterValues = {
   name: "",
   email: "",
-  rol: "",
   newPassword: "",
   confirmPassword: "",
 };
