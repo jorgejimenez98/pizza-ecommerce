@@ -4,11 +4,16 @@ import { CartItemsList, SubtotalPrice } from "../components";
 
 function Cart() {
   const { cartItems } = useSelector((state) => state.cart.cartItems);
+
+  const deleteItem = (id) => {
+    console.log("Delete Item", id);
+  };
+
   return (
     <div className="container">
       <div className="row">
         <div className="col-md-8">
-          <CartItemsList cartItems={cartItems} />
+          <CartItemsList cartItems={cartItems} deleteItem={deleteItem} />
         </div>
         <div className="col-md-4">
           <SubtotalPrice />
