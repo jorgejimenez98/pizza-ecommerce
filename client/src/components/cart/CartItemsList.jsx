@@ -6,46 +6,58 @@ import {
   ListItemText,
   ListItemAvatar,
   Avatar,
-  Typography,
   ListItemSecondaryAction,
   IconButton,
   Tooltip,
 } from "@mui/material";
 
-import { Delete } from "@material-ui/icons";
+import { Delete, Add, Remove, ShoppingCart } from "@material-ui/icons";
 
-export default function CartItemsList() {
+export default function CartItemsList({ cartItems, deleteItem }) {
+  console.log(cartItems);
   return (
-    <List sx={{ width: "100%", bgcolor: "background.paper" }}>
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Brunch this weekend?"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: "inline" }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                Ali Connors
-              </Typography>
-              {" — I'll be in your neighborhood doing errands this…"}
-            </React.Fragment>
-          }
-        />
-        <ListItemSecondaryAction>
-          <Tooltip title="Delete">
-            <IconButton edge="end">
-              <Delete />
-            </IconButton>
-          </Tooltip>
-        </ListItemSecondaryAction>
-      </ListItem>
-      <Divider variant="inset" component="li" />
-    </List>
+    <React.Fragment>
+      <h1 className="text-center text-muted">
+        My Cart <ShoppingCart />
+      </h1>
+      <List className="cart-items-list">
+        {cartItems.map((pizza, ind) => (
+          <React.Fragment key={ind}>
+            <ListItem alignItems="flex-start">
+              <ListItemAvatar>
+                <Avatar
+                  alt="pizza"
+                  src={pizza.image}
+                  sx={{ width: 70, height: 70 }}
+                />
+              </ListItemAvatar>
+              <ListItemText
+                primary={`${pizza.name} (${pizza.varient})`}
+                className="pl-3"
+                secondary={
+                  <React.Fragment>
+                    <span>
+                      Price: {pizza.quantity} * {pizza.prices[0][pizza.varient]}{" "}
+                      = {pizza.price}
+                      <br />
+                      Quantity <Remove className="pointer" /> 2{" "}
+                      <Add className="pointer" />
+                    </span>
+                  </React.Fragment>
+                }
+              />
+              <ListItemSecondaryAction>
+                <Tooltip title="Delete">
+                  <IconButton edge="end" onClick={() => deleteItem(pizza._id)}>
+                    <Delete />
+                  </IconButton>
+                </Tooltip>
+              </ListItemSecondaryAction>
+            </ListItem>
+            <Divider variant="inset" component="li" />
+          </React.Fragment>
+        ))}
+      </List>
+    </React.Fragment>
   );
 }
