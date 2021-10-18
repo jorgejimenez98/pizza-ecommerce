@@ -7,7 +7,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 code {
@@ -28,4 +28,17 @@ code {
   width: 90%;
   margin: auto;
   border-radius: 20px;
+}
+
+.login {
+  background-image: url("./assets/bg1.svg");
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  height: 90vh;
+}
+.register {
+  background-image: url("./assets/bg2.svg");
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  height: 90vh;
 }
