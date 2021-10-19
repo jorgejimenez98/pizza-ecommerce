@@ -24,4 +24,27 @@ router.post("/register", async (req, response) => {
   }
 });
 
+router.post("/login", async (req, response) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.find({ email, password });
+
+    // Check if User Exist
+    if (user.length > 0) {
+      response.send({
+        _id: user[0]._id,
+        name: user[0].name,
+        email: user[0].email,
+        isAdmin: user[0].isAdmin,
+      });
+    } else {
+      throw "User Login Failed";
+    }
+  } catch (error) {
+    // Send error Response
+    console.log("Error", error);
+    return response.status(400).json({ detail: error });
+  }
+});
+
 module.exports = router;
