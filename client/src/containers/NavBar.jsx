@@ -3,9 +3,12 @@ import { useSelector } from "react-redux";
 import { Navbar, Nav, Badge } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { BiCart } from "react-icons/bi";
+import MenuProfile from "./MenuProfile";
 
 function NavBar() {
   const { cartItems } = useSelector((state) => state.cart.cartItems);
+
+  const { user_login } = useSelector((state) => state.users.login);
   return (
     <Navbar
       bg="light"
@@ -19,9 +22,14 @@ function NavBar() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto ml-auto">
-          <LinkContainer to="/login">
-            <Nav.Link>Login</Nav.Link>
-          </LinkContainer>
+          {user_login ? (
+            <MenuProfile user_login={user_login} />
+          ) : (
+            <LinkContainer to="/login">
+              <Nav.Link>Login</Nav.Link>
+            </LinkContainer>
+          )}
+
           <LinkContainer to="/cart">
             <Nav.Link>
               <BiCart size={24} /> Cart{" "}
