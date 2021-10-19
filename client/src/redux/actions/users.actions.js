@@ -1,6 +1,31 @@
 import { UserActionTypes } from "../types/user.types";
 import axios from "axios";
 
+export const loginUser = (values) => async (dispatch) => {
+  try {
+    dispatch({
+      type: UserActionTypes.LOGIN.REQUEST,
+    });
+    console.log(values);
+    const { data } = await axios.post(`/api/users/login/`, values);
+
+    dispatch({
+      type: UserActionTypes.LOGIN.SUCCESS,
+      payload: data,
+    });
+
+    localStorage.setItem("user-login", JSON.stringify(data));
+  } catch (error) {
+    dispatch({
+      type: UserActionTypes.LOGIN.ERROR,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
 export const registerUser = (values) => async (dispatch) => {
   try {
     dispatch({
