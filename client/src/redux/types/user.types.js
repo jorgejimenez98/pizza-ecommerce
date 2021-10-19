@@ -5,6 +5,14 @@ const CREATE = {
   RESET: "USER_REGISTER_RESET",
 };
 
+const LOGIN = {
+  REQUEST: "USER_LOGIN_REQUEST",
+  SUCCESS: "USER_LOGIN_SUCCESS",
+  ERROR: "USER_LOGIN_ERROR",
+  RESET: "USER_LOGIN_RESET",
+};
+
 export const UserActionTypes = {
   REGISTER: CREATE,
+  LOGIN: LOGIN,
 };
