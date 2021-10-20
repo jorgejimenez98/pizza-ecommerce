@@ -1,6 +1,11 @@
 import { UserActionTypes } from "../types/user.types";
 import axios from "axios";
 
+export const logout = () => async (dispatch) => {
+  dispatch({ type: UserActionTypes.LOGIN.RESET });
+  localStorage.removeItem("user-login");
+};
+
 export const loginUser = (values) => async (dispatch) => {
   try {
     dispatch({
