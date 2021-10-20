@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/actions/users.actions";
 import IconButton from "@mui/material/IconButton";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
@@ -6,6 +8,7 @@ import Menu from "@mui/material/Menu";
 import { BiLogOut, BiUser } from "react-icons/bi";
 
 export default function MenuProfile({ user_login }) {
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleMenu = (event) => {
@@ -14,6 +17,10 @@ export default function MenuProfile({ user_login }) {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const logoutHandler = () => {
+    dispatch(logout());
   };
 
   return (
@@ -54,7 +61,7 @@ export default function MenuProfile({ user_login }) {
           <BiUser size={24} />
           &nbsp;Profile
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={logoutHandler}>
           <BiLogOut size={24} />
           &nbsp;LogOut
         </MenuItem>
