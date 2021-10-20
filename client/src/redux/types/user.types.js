@@ -15,4 +15,5 @@ const LOGIN = {
 export const UserActionTypes = {
   REGISTER: CREATE,
   LOGIN: LOGIN,
+  LOGOUT: "LOGOUT",
 };
