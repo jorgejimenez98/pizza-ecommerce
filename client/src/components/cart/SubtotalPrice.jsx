@@ -11,7 +11,13 @@ function SubtotalPrice({ cartItems }) {
       <h1 className="text-center text-muted">SubTotal = {subtotalPrice} cup</h1>
 
       <div className="text-center">
-        <Button variant="contained" color="success">
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => {
+            alert(`Make method on paypal to pay ${subtotalPrice} cup`);
+          }}
+        >
           Pay Now
         </Button>
       </div>
