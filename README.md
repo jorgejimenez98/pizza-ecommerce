@@ -1,4 +1,4 @@
-# Jorge Jimenez Diaz PortFolio
+# Pizza Delivery E-Commerce
 
 This is a e-commerce pizza delivery app example to practice the MERN tech.
 
