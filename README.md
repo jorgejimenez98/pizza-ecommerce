@@ -10,7 +10,7 @@ This is a e-commerce pizza delivery app example to practice the MERN tech.
 Clone repository:
 
 ```sh
-$ git clone https://github.com/jorgejimenez98/pizza-ecommerce
+$ git clone https://github.com/jorgejimenez98/pizza-ecommerce.git
 $ cd pizza-ecommerce
 
 ```
