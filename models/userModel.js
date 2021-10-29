@@ -3,16 +3,16 @@ const uniqueValidator = require("mongoose-unique-validator");
 
 const userSchema = mongoose.Schema(
   {
-    name: { type: String, require },
-    email: { type: String, require, unique: true },
-    password: { type: String, require },
-    isAdmin: { type: Boolean, default: false, require },
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, require: true },
+    isAdmin: { type: Boolean, default: false, required: true },
   },
   {
     timestamps: true,
   }
 );
 
-userSchema.plugin(uniqueValidator, "This email is already taken.");
+userSchema.plugin(uniqueValidator, "is already taken.");
 
 module.exports = mongoose.model("users", userSchema);
