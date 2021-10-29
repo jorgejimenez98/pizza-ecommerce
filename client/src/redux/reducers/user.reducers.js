@@ -3,7 +3,7 @@ import { combineReducers } from "redux";
 
 // USER LOGIN REDUCER
 const initialState = localStorage.getItem("user-login")
-  ? localStorage.getItem("user-login")
+  ? JSON.parse(localStorage.getItem("user-login"))
   : null;
 
 const userLoginReducer = (state = { user_login: initialState }, action) => {
