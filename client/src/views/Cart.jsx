@@ -7,6 +7,10 @@ function Cart() {
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart.cartItems);
 
+  const subtotalPrice = cartItems
+    .reduce((acc, item) => acc + item.price, 0)
+    .toFixed(2);
+
   const deleteItem = (id) => {
     dispatch(removeFromCart(id));
   };
@@ -17,6 +21,10 @@ function Cart() {
     } else if (!isAdd && quantity !== 1) {
       dispatch(addToCart(pizza, quantity - 1, varient));
     }
+  };
+
+  const handlePayButtom = () => {
+    console.log("PAGAR", subtotalPrice)
   };
 
   return (
@@ -35,7 +43,10 @@ function Cart() {
             />
           </div>
           <div className="col-md-6">
-            <SubtotalPrice cartItems={cartItems} />
+            <SubtotalPrice
+              subtotalPrice={subtotalPrice}
+              handlePayButtom={handlePayButtom}
+            />
           </div>
         </React.Fragment>
       )}
