@@ -56,7 +56,11 @@ function Cart() {
         </React.Fragment>
       )}
 
-      <ShippinAdress open={open} handleClose={handleClose} />
+      <ShippinAdress
+        open={open}
+        handleClose={handleClose}
+        subtotalPrice={subtotalPrice}
+      />
     </div>
   );
 }
