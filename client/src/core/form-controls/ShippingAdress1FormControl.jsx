@@ -21,7 +21,7 @@ function ShippingAdress1FormControl({ formik }) {
         }
       />
       {formik.touched.shippingAddress1 &&
-        Boolean(formik.errors.newPashippingAddress1ssword) && (
+        Boolean(formik.errors.shippingAddress2) && (
           <Form.Control.Feedback type="invalid">
             <span className="float-left">{formik.errors.shippingAddress1}</span>
           </Form.Control.Feedback>
