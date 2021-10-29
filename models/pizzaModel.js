@@ -2,12 +2,12 @@ const mongoose = require("mongoose");
 
 const pizzaSchema = mongoose.Schema(
   {
-    name: { type: String, require },
+    name: { type: String, required: true },
     varients: [],
     prices: [],
-    category: { type: String, require },
-    image: { type: String, require },
-    description: { type: String, require },
+    category: { type: String, required: true },
+    image: { type: String, required: true },
+    description: { type: String, required: true },
   },
   { timestamps: true }
 );
