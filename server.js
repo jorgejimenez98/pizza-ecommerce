@@ -1,19 +1,17 @@
 const express = require("express");
-
-// Root Imports
-const PizzaRoute = require("./routes/pizzasRoutes");
-const UserRouter = require("./routes/userRoutes");
-
 const app = express();
-const port = process.env.PORT || 5000;
-const db = require("./db");
 
+// Dependencies
+require("./db");
+
+// Middleware
+app.use(require("morgan")("tiny")); // Log API method details
 app.use(express.json());
 
 // Routes
-app.use("/api/pizzas/", PizzaRoute);
-app.use("/api/users/", UserRouter);
+app.use("/api/pizzas/", require("./routes/pizzasRoutes"));
+app.use("/api/users/", require("./routes/userRoutes"));
 
+const port = process.env.PORT || 5000;
 app.get("/", (req, res) => res.send(`Server Working!`));
-
 app.listen(port, () => console.log(`Example app listening on port ${port}`));
