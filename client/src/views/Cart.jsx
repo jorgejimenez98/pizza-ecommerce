@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart, removeFromCart } from "../redux/actions/cart.actions";
-import { CartItemsList, SubtotalPrice } from "../components";
+import { CartItemsList, ShippinAdress, SubtotalPrice } from "../components";
 
 function Cart() {
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart.cartItems);
+  const [open, setOpen] = useState(false);
 
   const subtotalPrice = cartItems
     .reduce((acc, item) => acc + item.price, 0)
@@ -24,7 +25,11 @@ function Cart() {
   };
 
   const handlePayButtom = () => {
-    console.log("PAGAR", subtotalPrice)
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -50,6 +55,8 @@ function Cart() {
           </div>
         </React.Fragment>
       )}
+
+      <ShippinAdress open={open} handleClose={handleClose} />
     </div>
   );
 }
