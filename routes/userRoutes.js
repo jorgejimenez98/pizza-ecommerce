@@ -26,27 +26,22 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.post("/login", async (req, response) => {
-  try {
-    const { email, password } = req.body;
-    const user = await User.find({ email, password });
-
-    // Check if User Exist
-    if (user.length > 0) {
-      response.send({
-        _id: user[0]._id,
-        name: user[0].name,
-        email: user[0].email,
-        isAdmin: user[0].isAdmin,
-      });
-    } else {
-      throw "User Login Failed";
-    }
-  } catch (error) {
-    // Send error Response
-    console.log("Error", error);
-    return response.status(400).json({ detail: error });
+// LOGIN USER
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  // Find A user with provided email
+  const user = await User.findOne({ email: email });
+  // Check if user exist
+  if (!user) return res.status(404).send({ detail: "User not found" });
+  // Check if Password is correct
+  if (user.checkPassword(password)) {
+    // Generate User Token
+    const token = user.generateJWT();
+    // Return User and token Response
+    return res.status(200).send({ user: user.toAuthJson(), token });
   }
+  // Send Error Login Message
+  res.status(400).send({ detail: "Incorrect Password" });
 });
 
 module.exports = router;
