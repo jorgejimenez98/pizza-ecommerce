@@ -1,4 +1,17 @@
 import React, { useEffect } from "react";
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { addUserOrder } from "../redux/actions/order.actions";
+import { setSnackbar } from "../redux/actions/snackbar.actions";
+import { OrderActionTypes } from "../redux/types/order.types";
+// Components
+import { Loader, Message } from "../containers";
+import {
+  ShippingAdress1FormControl,
+  ShippingAdress2FormControl,
+  CountryCityFormControls,
+  PhoneFormControl,
+} from "../core/form-controls";
 // Formik
 import { useFormik } from "formik";
 import { initialAdressValues, adressSchema } from "../core/formik-validations";
@@ -10,23 +23,36 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
-import {
-  ShippingAdress1FormControl,
-  ShippingAdress2FormControl,
-  CountryCityFormControls,
-  PhoneFormControl,
-} from "../core/form-controls";
 
-function ShippinAdress({ open, handleClose, subtotalPrice }) {
+function ShippinAdress({
+  open,
+  handleClose,
+  subtotalPrice,
+  cartItems,
+  history,
+}) {
+  const dispatch = useDispatch();
+
+  const { loading, error, success } = useSelector((state) => state.orders.add);
+
   useEffect(() => {
-    formik.resetForm();
-    // eslint-disable-next-line
-  }, []);
+    if (success) {
+      const message = "Order placed successfully";
+      dispatch(setSnackbar(true, "success", message));
+      dispatch({ type: OrderActionTypes.ADD_ORDER.RESET });
+      history.push("/");
+    }
+
+    return () => {
+      dispatch({ type: OrderActionTypes.ADD_ORDER.RESET });
+    };
+  }, [success, dispatch, history]);
+
   const formik = useFormik({
     initialValues: initialAdressValues,
     validationSchema: adressSchema,
     onSubmit: (values) => {
-      console.log("ADD", values);
+      dispatch(addUserOrder({ form: values, subtotalPrice, cartItems }));
     },
   });
 
@@ -40,12 +66,14 @@ function ShippinAdress({ open, handleClose, subtotalPrice }) {
           </div>
         </DialogTitle>
         <DialogContent>
+          {error && <Message type="error" message={error} />}
           <ShippingAdress1FormControl formik={formik} />
           <ShippingAdress2FormControl formik={formik} />
           <CountryCityFormControls formik={formik} />
           <PhoneFormControl formik={formik} />
         </DialogContent>
         <DialogActions>
+          {loading && <Loader />}
           <Button onClick={handleClose}>Close</Button>
           <Button type="submit" variant="contained">
             Finish Order
