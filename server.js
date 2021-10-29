@@ -16,6 +16,7 @@ app.use(require("./helpers/errorhandler"));
 // Routes
 app.use("/api/pizzas", require("./routes/pizza.routes"));
 app.use("/api/users", require("./routes/user.routes"));
+app.use("/api/orders", require("./routes/order.routes"));
 
 const port = process.env.PORT || 5000;
 app.get("/", (req, res) => res.send(`Server Working!`));
