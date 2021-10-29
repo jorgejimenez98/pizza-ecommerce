@@ -60,6 +60,7 @@ function Cart() {
         open={open}
         handleClose={handleClose}
         subtotalPrice={subtotalPrice}
+        cartItems={cartItems}
       />
     </div>
   );
