@@ -11,14 +11,21 @@ export const loginUser = (values) => async (dispatch) => {
     dispatch({
       type: UserActionTypes.LOGIN.REQUEST,
     });
-    const { data } = await axios.post(`/api/users/login/`, values);
+    const { data } = await axios.post(`/api/users/login`, values);
+
+    const userInfo = {
+      email: data.user.email,
+      name: data.user.name,
+      isAdmin: data.user.isAdmin,
+      token: data.token,
+    };
 
     dispatch({
       type: UserActionTypes.LOGIN.SUCCESS,
-      payload: data,
+      payload: userInfo,
     });
 
-    localStorage.setItem("user-login", JSON.stringify(data));
+    localStorage.setItem("user-login", JSON.stringify(userInfo));
   } catch (error) {
     dispatch({
       type: UserActionTypes.LOGIN.ERROR,
@@ -36,7 +43,7 @@ export const registerUser = (values) => async (dispatch) => {
       type: UserActionTypes.REGISTER.REQUEST,
     });
 
-    await axios.post(`/api/users/register/`, values);
+    await axios.post(`/api/users/register`, values);
 
     dispatch({
       type: UserActionTypes.REGISTER.SUCCESS,
