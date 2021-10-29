@@ -1,7 +1,7 @@
 import { OrderActionTypes } from "../types/order.types";
 import axios from "axios";
 
-export const addOrder = (values) => async (dispatch) => {
+export const addUserOrder = (values) => async (dispatch) => {
   try {
     dispatch({
       type: OrderActionTypes.ADD_ORDER.REQUEST,
