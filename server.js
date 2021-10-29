@@ -14,8 +14,8 @@ app.use(require("./helpers/jwt")()); // Protect API Authentication
 app.use(require("./helpers/errorhandler"));
 
 // Routes
-app.use("/api/pizzas", require("./routes/pizzasRoutes"));
-app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/pizzas", require("./routes/pizza.routes"));
+app.use("/api/users", require("./routes/user.routes"));
 
 const port = process.env.PORT || 5000;
 app.get("/", (req, res) => res.send(`Server Working!`));
