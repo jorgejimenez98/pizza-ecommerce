@@ -1,15 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const pizzaController = require("../controllers/pizza.controller");
 
-const Pizza = require("../models/pizzaModel");
-
-router.get("/getPizzas", async (request, response) => {
-  try {
-    const data = await Pizza.find({});
-    response.send(data);
-  } catch (error) {
-    return response.status(400).json({ detail: error });
-  }
-});
+router.get("/getPizzas", pizzaController.getPizzasList);
 
 module.exports = router;
