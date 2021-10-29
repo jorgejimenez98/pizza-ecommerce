@@ -3,24 +3,26 @@ const router = express.Router();
 
 const User = require("../models/userModel");
 
-router.post("/register", async (req, response) => {
+// REGISTER USER
+router.post("/register", async (req, res) => {
   try {
     const data = req.body;
 
-    // Create User
-    const newUser = new User({
+    // create user
+    let user = new User({
       name: data.name,
       email: data.email,
-      password: data.password,
       isAdmin: data.isAdmin ? data.isAdmin : false,
     });
-    // Save User
-    newUser.save();
-    // Send response
-    response.send("User Create Succ");
+    // Set password
+    user.set_passwordHash(data.password);
+
+    // return user
+    user = await user.save();
+    if (!user) res.status(404).send({ detail: "Error to create USER" });
+    res.send(user);
   } catch (error) {
-    // Send error Response
-    return response.status(400).json({ detail: error });
+    res.status(404).send({ detail: error.message });
   }
 });
 
