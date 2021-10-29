@@ -12,4 +12,4 @@ router.get("/getPizzas", async (request, response) => {
   }
 });
 
-module.exports = router
+module.exports = router;
