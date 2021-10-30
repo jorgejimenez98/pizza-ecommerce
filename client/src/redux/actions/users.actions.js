@@ -14,6 +14,7 @@ export const loginUser = (values) => async (dispatch) => {
     const { data } = await axios.post(`/api/users/login`, values);
 
     const userInfo = {
+      _id: data.user.id,
       email: data.user.email,
       name: data.user.name,
       isAdmin: data.user.isAdmin,
