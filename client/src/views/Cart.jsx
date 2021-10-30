@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addToCart, removeFromCart } from "../redux/actions/cart.actions";
 import { CartItemsList, ShippinAdress, SubtotalPrice } from "../components";
 
-function Cart() {
+function Cart({history}) {
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart.cartItems);
   const [open, setOpen] = useState(false);
@@ -61,6 +61,7 @@ function Cart() {
         handleClose={handleClose}
         subtotalPrice={subtotalPrice}
         cartItems={cartItems}
+        history={history}
       />
     </div>
   );
