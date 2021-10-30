@@ -1,7 +1,7 @@
 import { OrderActionTypes } from "../types/order.types";
 import { combineReducers } from "redux";
 
-// PIZZAS LIST REDUCER
+// ADD ORDER REDUCER
 
 const addOrderReducer = (state = {}, action) => {
   switch (action.type) {
@@ -22,8 +22,30 @@ const addOrderReducer = (state = {}, action) => {
   }
 };
 
+// USER ORDERS REDUCER
+
+const userOrdersReducer = (state = { orders: [] }, action) => {
+  switch (action.type) {
+    case OrderActionTypes.USER_ORDERS_LIST.REQUEST:
+      return { loading: true };
+
+    case OrderActionTypes.USER_ORDERS_LIST.SUCCESS:
+      return { loading: false, orders: action.payload };
+
+    case OrderActionTypes.USER_ORDERS_LIST.ERROR:
+      return { loading: false, error: action.payload };
+
+    case OrderActionTypes.USER_ORDERS_LIST.RESET:
+      return {};
+
+    default:
+      return state;
+  }
+};
+
 const orderReducers = combineReducers({
   add: addOrderReducer,
+  userOrders: userOrdersReducer,
 });
 
 export default orderReducers;
