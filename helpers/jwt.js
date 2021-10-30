@@ -12,6 +12,7 @@ function authJWT() {
     path: [
       // Paths that does not need to be authenticated
       { url: /\/api\/pizzas(.*)/, methods: ["GET", "OPTIONS"] },
+      { url: "/api/orders", methods: ["POST"] },
       "/api/users/login",
       "/api/users/register",
     ],
