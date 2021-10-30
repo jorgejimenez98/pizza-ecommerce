@@ -49,7 +49,12 @@ UserSchema.methods.set_passwordHash = function (password) {
 
 // GET USER TO AUTH JSON
 UserSchema.methods.toAuthJson = function () {
-  return { email: this.email, name: this.name, isAdmin: this.isAdmin };
+  return {
+    id: this.id,
+    email: this.email,
+    name: this.name,
+    isAdmin: this.isAdmin,
+  };
 };
 
 // Generate Token
