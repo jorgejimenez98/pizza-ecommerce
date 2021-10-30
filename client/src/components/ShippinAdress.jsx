@@ -34,6 +34,7 @@ function ShippinAdress({
   const dispatch = useDispatch();
 
   const { loading, error, success } = useSelector((state) => state.orders.add);
+  const { user_login } = useSelector((state) => state.users.login);
 
   useEffect(() => {
     if (success) {
@@ -52,7 +53,10 @@ function ShippinAdress({
     initialValues: initialAdressValues,
     validationSchema: adressSchema,
     onSubmit: (values) => {
-      dispatch(addUserOrder({ form: values, subtotalPrice, cartItems }));
+      const userId = user_login._id;
+      dispatch(
+        addUserOrder({ form: values, subtotalPrice, cartItems, userId })
+      );
     },
   });
 
