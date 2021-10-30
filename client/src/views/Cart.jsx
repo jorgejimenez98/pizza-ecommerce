@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart, removeFromCart } from "../redux/actions/cart.actions";
+import { setSnackbar } from "../redux/actions/snackbar.actions";
 import { CartItemsList, ShippinAdress, SubtotalPrice } from "../components";
 
-function Cart({history}) {
+function Cart({ history }) {
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart.cartItems);
+  const { user_login } = useSelector((state) => state.users.login);
   const [open, setOpen] = useState(false);
 
   const subtotalPrice = cartItems
@@ -25,7 +27,12 @@ function Cart({history}) {
   };
 
   const handlePayButtom = () => {
-    setOpen(true);
+    if (!user_login) {
+      const message = "You must be authenticated to pay a Order";
+      dispatch(setSnackbar(true, "error", message));
+    } else {
+      setOpen(true);
+    }
   };
 
   const handleClose = () => {
