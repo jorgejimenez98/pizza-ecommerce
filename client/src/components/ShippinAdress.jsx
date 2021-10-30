@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addUserOrder } from "../redux/actions/order.actions";
 import { setSnackbar } from "../redux/actions/snackbar.actions";
 import { OrderActionTypes } from "../redux/types/order.types";
+import { CartActionTypes } from "../redux/types/cart.types";
 // Components
 import { Loader, Message } from "../containers";
 import {
@@ -42,6 +43,8 @@ function ShippinAdress({
       dispatch(setSnackbar(true, "success", message));
       dispatch({ type: OrderActionTypes.ADD_ORDER.RESET });
       history.push("/");
+      // Clear Cart Items
+      dispatch({ type: CartActionTypes.CLEAR });
     }
 
     return () => {
