@@ -2,9 +2,10 @@ const mongoose = require("mongoose");
 
 const orderItemSchema = mongoose.Schema({
   quantity: { type: Number, required: true },
-  product: {
+  varient: {type: String, required: true},
+  pizza: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Pizza",
+    ref: "pizzas",
     required: true,
   },
 });
