@@ -6,6 +6,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { BiLogOut, BiUser } from "react-icons/bi";
+import { LinkContainer } from "react-router-bootstrap";
 
 export default function MenuProfile({ user_login }) {
   const dispatch = useDispatch();
@@ -57,10 +58,12 @@ export default function MenuProfile({ user_login }) {
         >
           {user_login["name"]}
         </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <BiUser size={24} />
-          &nbsp;Profile
-        </MenuItem>
+        <LinkContainer to={"/my/orders"}>
+          <MenuItem onClick={handleClose}>
+            <BiUser size={24} />
+            &nbsp;My Orders
+          </MenuItem>
+        </LinkContainer>
         <MenuItem onClick={logoutHandler}>
           <BiLogOut size={24} />
           &nbsp;LogOut
