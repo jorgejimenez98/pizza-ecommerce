@@ -30,6 +30,13 @@ const cartListReducer = (state = { cartItems: initialState }, action) => {
         cartItems: state.cartItems.filter((x) => x._id !== itemId),
       };
 
+    case CartActionTypes.CLEAR:
+      localStorage.setItem("cartItems", []);
+      return {
+        ...state,
+        cartItems: [],
+      };
+
     default:
       return state;
   }
