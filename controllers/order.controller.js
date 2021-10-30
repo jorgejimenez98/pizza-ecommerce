@@ -6,9 +6,7 @@ exports.postUserOrder = async (req, res) => {
   try {
     // Get Data from req.body
     const data = req.body;
-    const { shippingAddress1, shippingAddress2, city, country, phone } =
-      data.form;
-    const { subtotalPrice, cartItems } = data;
+    const { cartItems } = data;
 
     // Create Order Items and Get Promise
     const orderItemsIds = Promise.all(
@@ -46,9 +44,24 @@ exports.postUserOrder = async (req, res) => {
     // Sum All total Prices from Array
     const totalPrice = totalPrices.reduce((a, b) => a + b, 0);
 
-    console.log(totalPrice, 'AAAAAA')
+    // Create Order
+    let order = new Order({
+      orderItems: orderItemsIdsResolved,
+      shippingAddress1: data.form.shippingAddress1,
+      shippingAddress2: data.form.shippingAddress2,
+      city: data.form.city,
+      country: data.form.country,
+      phone: data.form.phone,
+      status: "Pending",
+      totalPrice: totalPrice,
+      user: data.userId,
+    });
 
-    res.send("ALL is OK");
+    // Save New Order
+    order = await order.save();
+    // Return new Order
+    if (!order) res.status(404).send({ detail: "Error to create order" });
+    res.send("Order Create Successfully");
   } catch (error) {
     res.status(404).send({ detail: error.message });
   }
