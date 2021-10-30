@@ -66,3 +66,21 @@ exports.postUserOrder = async (req, res) => {
     res.status(404).send({ detail: error.message });
   }
 };
+
+// Register User
+exports.getUserOrders = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const userOrders = await Order.find({ user: userId })
+      .populate({
+        path: "orderItems",
+        populate: { path: "pizza" },
+      })
+      .sort("-dateOrdered");
+    if (!userOrders)
+      res.status(400).send({ detail: "Error to get User Orders" });
+    res.send(userOrders);
+  } catch (error) {
+    res.status(404).send({ detail: error.message });
+  }
+};
