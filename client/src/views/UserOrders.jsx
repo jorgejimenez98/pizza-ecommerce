@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserOrders } from "../redux/actions/order.actions";
 import { Loader, Message } from "../containers";
+import { listOptions, columns } from "../core/mui-datatable";
+import MUIDataTable from "mui-datatables";
 
-function UserOrders() {
+function UserOrders({ history }) {
   const dispatch = useDispatch();
 
   // User Info Selector:
@@ -13,13 +15,13 @@ function UserOrders() {
     (state) => state.orders.userOrders
   );
 
-  console.log(orders);
-
   useEffect(() => {
-    if (user_login) {
+    if (!user_login) {
+      history.push("/");
+    } else {
       dispatch(getUserOrders(user_login._id));
     }
-  }, [user_login, dispatch]);
+  }, [user_login, dispatch, history]);
 
   return (
     <React.Fragment>
@@ -28,7 +30,16 @@ function UserOrders() {
       ) : error ? (
         <Message type="error" message={error} />
       ) : (
-        <React.Fragment>All id ok</React.Fragment>
+        orders && (
+          <div className="ml-5 mr-5">
+            <MUIDataTable
+              title={`My Ordeers (${orders?.length})`}
+              data={orders}
+              columns={columns}
+              options={listOptions}
+            />
+          </div>
+        )
       )}
     </React.Fragment>
   );
