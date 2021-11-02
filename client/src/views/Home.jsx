@@ -19,10 +19,6 @@ function Home() {
     dispatch(getPizzasList());
   }, [dispatch]);
 
-  const filterSubmit = (values) => {
-    console.log(values.name, values.category, "OKOK");
-  };
-
   return (
     <div className="container text-center">
       {loadingList ? (
@@ -32,7 +28,7 @@ function Home() {
       ) : (
         pizzas && (
           <React.Fragment>
-            <Filter filterSubmit={filterSubmit} />
+            <Filter />
             <div className="row">
               {pizzas.map((pizza, ind) => (
                 <div className="col-md-4" key={ind}>
