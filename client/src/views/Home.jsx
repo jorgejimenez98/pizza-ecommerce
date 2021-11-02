@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getPizzasList } from "../redux/actions/pizzas.actions";
 // Components
-import { PizzaCard } from "../components";
+import { Filter, PizzaCard } from "../components";
 import { Loader, Message } from "../containers";
 
 function Home() {
@@ -27,13 +27,16 @@ function Home() {
         <Message message={errorList} type="error" />
       ) : (
         pizzas && (
-          <div className="row">
-            {pizzas.map((pizza, ind) => (
-              <div className="col-md-4" key={ind}>
-                <PizzaCard pizza={pizza} />;
-              </div>
-            ))}
-          </div>
+          <React.Fragment>
+            <Filter />
+            <div className="row">
+              {pizzas.map((pizza, ind) => (
+                <div className="col-md-4" key={ind}>
+                  <PizzaCard pizza={pizza} />;
+                </div>
+              ))}
+            </div>
+          </React.Fragment>
         )
       )}
     </div>
