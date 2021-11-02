@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { filterPizzasList } from "../redux/actions/pizzas.actions";
 
 function Filter({ filterSubmit }) {
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [category, setCategory] = useState("all");
 
   const handleSubmit = () => {
-    filterSubmit({ name, category });
+    dispatch(filterPizzasList({ name, category }));
   };
 
   return (
