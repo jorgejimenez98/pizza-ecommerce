@@ -5,7 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { BiLogOut, BiUser } from "react-icons/bi";
+import { BiLogOut, GrUserAdmin, FaJediOrder } from "react-icons/all";
 import { LinkContainer } from "react-router-bootstrap";
 
 export default function MenuProfile({ user_login }) {
@@ -58,12 +58,23 @@ export default function MenuProfile({ user_login }) {
         >
           {user_login["name"]}
         </MenuItem>
+
+        {user_login.isAdmin && (
+          <LinkContainer to={"/admin/panel"}>
+            <MenuItem onClick={handleClose}>
+              <GrUserAdmin size={24} />
+              &nbsp;Admin Panel
+            </MenuItem>
+          </LinkContainer>
+        )}
+
         <LinkContainer to={"/my/orders"}>
           <MenuItem onClick={handleClose}>
-            <BiUser size={24} />
+            <FaJediOrder size={24} />
             &nbsp;My Orders
           </MenuItem>
         </LinkContainer>
+
         <MenuItem onClick={logoutHandler}>
           <BiLogOut size={24} />
           &nbsp;LogOut
