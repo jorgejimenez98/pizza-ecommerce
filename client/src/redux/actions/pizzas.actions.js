@@ -1,60 +1,30 @@
 import { PizzaActionTypes } from "../types/pizzas.types";
 import axios from "axios";
 
-export const getPizzasList = () => async (dispatch) => {
-  try {
-    dispatch({
-      type: PizzaActionTypes.PIZZAS_LIST.REQUEST,
-    });
+export const getPizzasList =
+  (keyword = "") =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: PizzaActionTypes.PIZZAS_LIST.REQUEST,
+      });
 
-    const { data } = await axios.get(`/api/pizzas/getPizzas/`);
+      const { data } = await axios.get(`/api/pizzas/getPizzas/${keyword}`);
 
-    dispatch({
-      type: PizzaActionTypes.PIZZAS_LIST.SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: PizzaActionTypes.PIZZAS_LIST.ERROR,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
-    });
-  }
-};
-
-export const filterPizzasList = (values) => async (dispatch) => {
-  try {
-    dispatch({
-      type: PizzaActionTypes.PIZZAS_LIST.REQUEST,
-    });
-
-    const { data } = await axios.get(`/api/pizzas/getPizzas/`);
-
-    let filterData = data.filter((pizza) =>
-      pizza.name.toLowerCase().includes(values.name)
-    );
-    if (values.category !== "all") {
-      filterData = data.filter((pizza) =>
-        pizza.category.toLowerCase().includes(values.category)
-      );
+      dispatch({
+        type: PizzaActionTypes.PIZZAS_LIST.SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: PizzaActionTypes.PIZZAS_LIST.ERROR,
+        payload:
+          error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message,
+      });
     }
-
-    dispatch({
-      type: PizzaActionTypes.PIZZAS_LIST.SUCCESS,
-      payload: filterData,
-    });
-  } catch (error) {
-    dispatch({
-      type: PizzaActionTypes.PIZZAS_LIST.ERROR,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
-    });
-  }
-};
+  };
 
 /* 
     const {
@@ -67,5 +37,4 @@ export const filterPizzasList = (values) => async (dispatch) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-
 */
