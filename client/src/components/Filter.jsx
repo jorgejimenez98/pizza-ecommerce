@@ -39,7 +39,7 @@ function Filter() {
             >
               <option value="all">All</option>
               <option value="veg">Veg</option>
-              <option value="noveg">No Veg</option>
+              <option value="nonveg">No Veg</option>
             </select>
           </div>
         </div>
