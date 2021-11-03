@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { filterPizzasList } from "../redux/actions/pizzas.actions";
+import { useHistory } from "react-router-dom";
 
-function Filter({ filterSubmit }) {
-  const dispatch = useDispatch();
+function Filter() {
+  const history = useHistory();
   const [name, setName] = useState("");
   const [category, setCategory] = useState("all");
 
-  const handleSubmit = () => {
-    dispatch(filterPizzasList({ name, category }));
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (name || category) {
+      history.push(`/home/?keyword=${name}&category=${category}`);
+    } else {
+      // Volver a la pagina original en q se encuentra el usuario
+      history.push(history.push(history.location.pathname));
+    }
   };
 
   return (
