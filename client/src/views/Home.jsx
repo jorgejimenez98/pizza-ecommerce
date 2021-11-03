@@ -6,8 +6,9 @@ import { getPizzasList } from "../redux/actions/pizzas.actions";
 import { Filter, PizzaCard } from "../components";
 import { Loader, Message } from "../containers";
 
-function Home() {
+function Home({ history }) {
   const dispatch = useDispatch();
+  const location = history.location.search;
 
   const {
     loading: loadingList,
@@ -16,8 +17,8 @@ function Home() {
   } = useSelector((state) => state.pizzas.list);
 
   useEffect(() => {
-    dispatch(getPizzasList());
-  }, [dispatch]);
+    dispatch(getPizzasList(location));
+  }, [dispatch, location]);
 
   return (
     <div className="container text-center">
