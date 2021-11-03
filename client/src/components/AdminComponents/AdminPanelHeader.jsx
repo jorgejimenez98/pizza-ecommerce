@@ -24,19 +24,19 @@ export default function AdminPanelHeader() {
         aria-label="icon label tabs example"
         className="bg-white rounded"
       >
-        <LinkContainer to={"/admin/users/list"}>
+        <LinkContainer to={"/admin/panel/users/list"}>
           <Tab icon={<HiUserGroup size={24} />} label="Users List" />
         </LinkContainer>
 
-        <LinkContainer to={"/admin/pizzas/list"}>
+        <LinkContainer to={"/admin/panel/pizzas/list"}>
           <Tab icon={<FaPizzaSlice size={24} />} label="Pizzas List" />
         </LinkContainer>
 
-        <LinkContainer to={"/admin/pizzas/add"}>
+        <LinkContainer to={"/admin/panel/pizzas/add"}>
           <Tab icon={<GrAdd size={24} />} label="Add Pizza" />
         </LinkContainer>
 
-        <LinkContainer to={"/admin/orders/list"}>
+        <LinkContainer to={"/admin/panel/orders/list"}>
           <Tab icon={<GrOrderedList size={24} />} label="Orders List" />
         </LinkContainer>
       </Tabs>
