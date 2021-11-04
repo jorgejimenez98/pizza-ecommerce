@@ -40,3 +40,16 @@ exports.loginUser = async (req, res) => {
   // Send Error Login Message
   res.status(400).send({ detail: "Incorrect Password" });
 };
+
+// Get User List
+exports.getUserList = async (req, res) => {
+  try {
+    // Get List
+    const usersList = await User.find({});
+    // Resturn Response
+    if (!usersList) res.status(400).send({ detail: "Error to get User List" });
+    res.send(usersList);
+  } catch (error) {
+    res.status(400).send({ detail: error });
+  }
+};
