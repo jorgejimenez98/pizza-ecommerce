@@ -1,4 +1,5 @@
 import { UserActionTypes } from "../types/user.types";
+import { getConfig } from "../settings";
 import axios from "axios";
 
 export const logout = () => async (dispatch) => {
@@ -52,6 +53,29 @@ export const registerUser = (values) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: UserActionTypes.REGISTER.ERROR,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const getUsersList = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: UserActionTypes.LIST.REQUEST,
+    });
+
+    const { data } = await axios.get(`/api/users`, getConfig(getState()));
+
+    dispatch({
+      type: UserActionTypes.LIST.SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: UserActionTypes.LIST.ERROR,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
