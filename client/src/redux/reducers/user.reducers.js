@@ -46,9 +46,31 @@ const userRegisterReducer = (state = {}, action) => {
   }
 };
 
+// USER LIST REDUCER
+
+const userListReducer = (state = { users: [] }, action) => {
+  switch (action.type) {
+    case UserActionTypes.LIST.REQUEST:
+      return { loading: true };
+
+    case UserActionTypes.LIST.SUCCESS:
+      return { loading: false, users: action.payload };
+
+    case UserActionTypes.LIST.ERROR:
+      return { loading: false, error: action.payload };
+
+    case UserActionTypes.LIST.RESET:
+      return {};
+
+    default:
+      return state;
+  }
+};
+
 const userRedicers = combineReducers({
   create: userRegisterReducer,
   login: userLoginReducer,
+  list: userListReducer,
 });
 
 export default userRedicers;
