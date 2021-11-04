@@ -6,6 +6,7 @@ import MUIDataTable from "mui-datatables";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { getUsersList } from "../../../redux/actions/users.actions";
+import { UserActionTypes } from "../../../redux/types/user.types";
 // Others
 import { userColumns, userlistOptions } from "../../../core/mui-datatable";
 import { FaTrash } from "react-icons/fa";
@@ -30,6 +31,12 @@ function UserList({ history }) {
     } else {
       dispatch(getUsersList());
     }
+
+    // Clear State
+    return () => {
+      dispatch({ type: UserActionTypes.LIST.RESET });
+      dispatch({ type: UserActionTypes.DELETE.RESET });
+    };
   }, [user_login, history, dispatch]);
 
   // Manage Custom Toolbar Select
