@@ -12,8 +12,16 @@ const LOGIN = {
   RESET: "USER_LOGIN_RESET",
 };
 
+const LIST = {
+  REQUEST: "USER_LIST_REQUEST",
+  SUCCESS: "USER_LIST_SUCCESS",
+  ERROR: "USER_LIST_ERROR",
+  RESET: "USER_LIST_RESET",
+};
+
 export const UserActionTypes = {
   REGISTER: CREATE,
   LOGIN: LOGIN,
+  LIST: LIST,
   LOGOUT: "LOGOUT",
 };
