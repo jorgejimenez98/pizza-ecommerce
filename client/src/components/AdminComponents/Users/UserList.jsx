@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+// Component
 import { Tooltip, IconButton } from "@material-ui/core";
-import { getUsersList } from "../../../redux/actions/users.actions";
 import { Loader, Message, ConfirmationDialog } from "../../../containers";
 import MUIDataTable from "mui-datatables";
+// Redux
+import { useSelector, useDispatch } from "react-redux";
+import { getUsersList } from "../../../redux/actions/users.actions";
+// Others
 import { userColumns, userlistOptions } from "../../../core/mui-datatable";
 import { FaTrash } from "react-icons/fa";
 
