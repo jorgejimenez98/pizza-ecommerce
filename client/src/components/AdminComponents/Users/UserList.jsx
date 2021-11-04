@@ -1,18 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Tooltip, IconButton } from "@material-ui/core";
 import { getUsersList } from "../../../redux/actions/users.actions";
-import { Loader, Message } from "../../../containers";
+import { Loader, Message, ConfirmationDialog } from "../../../containers";
+import MUIDataTable from "mui-datatables";
+import { userColumns, userlistOptions } from "../../../core/mui-datatable";
+import { FaTrash } from "react-icons/fa";
 
 function UserList({ history }) {
   const dispatch = useDispatch();
+
+  const [showModal, setShowModal] = useState(false);
+  const [rowsToDelete, setRowsToDelete] = useState([]);
 
   // User Login Selector
   const { user_login } = useSelector((state) => state.users.login);
 
   // Users  List Selector
   const { loading, error, users } = useSelector((state) => state.users.list);
-
-  console.log("AAAA", users);
 
   useEffect(() => {
     if (!user_login) {
@@ -24,6 +29,38 @@ function UserList({ history }) {
     }
   }, [user_login, history, dispatch]);
 
+  // Manage Custom Toolbar Select
+  userlistOptions.customToolbarSelect = ({ data }) => {
+    return (
+      <React.Fragment>
+        <Tooltip title="Delete Selected Users" className="mr-2">
+          <IconButton
+            onClick={() => {
+              let items = [];
+              data.forEach((element) => {
+                items.push(users[element.dataIndex]);
+              });
+              setRowsToDelete(items);
+              setShowModal(true);
+            }}
+          >
+            <FaTrash />
+          </IconButton>
+        </Tooltip>
+      </React.Fragment>
+    );
+  };
+
+  // Function to Close Modal
+  const closeDialog = () => {
+    setShowModal(false);
+  };
+
+  // Confirm Delete After User Login Warning
+  const confirmDelete = () => {
+    console.log("Delete", rowsToDelete);
+  };
+
   return (
     <React.Fragment>
       {loading ? (
@@ -33,7 +70,21 @@ function UserList({ history }) {
       ) : (
         users && (
           <React.Fragment>
-            <div>Todo is OK</div>
+            <div className="container mt-4">
+              <MUIDataTable
+                title={`Users List (${users.length})`}
+                data={users}
+                columns={userColumns}
+                options={userlistOptions}
+              />
+            </div>
+
+            <ConfirmationDialog
+              open={showModal}
+              closeDialog={closeDialog}
+              agreeConfirm={confirmDelete}
+              type="Users"
+            />
           </React.Fragment>
         )
       )}
