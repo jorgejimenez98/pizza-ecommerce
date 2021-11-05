@@ -83,3 +83,25 @@ export const getUsersList = () => async (dispatch, getState) => {
     });
   }
 };
+
+export const deleteUsers = (users) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: UserActionTypes.DELETE.REQUEST,
+    });
+
+    await axios.post(`/api/users/deleteUsers`, users, getConfig(getState()));
+
+    dispatch({
+      type: UserActionTypes.DELETE.SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: UserActionTypes.DELETE.ERROR,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
