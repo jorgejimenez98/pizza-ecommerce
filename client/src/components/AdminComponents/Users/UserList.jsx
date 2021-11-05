@@ -5,7 +5,11 @@ import { Loader, Message, ConfirmationDialog } from "../../../containers";
 import MUIDataTable from "mui-datatables";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
-import { getUsersList } from "../../../redux/actions/users.actions";
+import {
+  getUsersList,
+  deleteUsers,
+} from "../../../redux/actions/users.actions";
+import { setSnackbar } from "../../../redux/actions/snackbar.actions";
 import { UserActionTypes } from "../../../redux/types/user.types";
 // Others
 import { userColumns, userlistOptions } from "../../../core/mui-datatable";
@@ -23,6 +27,13 @@ function UserList({ history }) {
   // Users  List Selector
   const { loading, error, users } = useSelector((state) => state.users.list);
 
+  // Users Delete Selector
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = useSelector((state) => state.users.delete);
+
   useEffect(() => {
     if (!user_login) {
       history.push("/");
@@ -30,6 +41,12 @@ function UserList({ history }) {
       history.push("/403");
     } else {
       dispatch(getUsersList());
+
+      if (successDelete) {
+        const message = "Users Deleted Successfully";
+        dispatch(setSnackbar(true, "success", message));
+        dispatch({ type: UserActionTypes.DELETE.RESET });
+      }
     }
 
     // Clear State
@@ -37,7 +54,7 @@ function UserList({ history }) {
       dispatch({ type: UserActionTypes.LIST.RESET });
       dispatch({ type: UserActionTypes.DELETE.RESET });
     };
-  }, [user_login, history, dispatch]);
+  }, [user_login, history, dispatch, successDelete]);
 
   // Manage Custom Toolbar Select
   userlistOptions.customToolbarSelect = ({ data }) => {
@@ -68,7 +85,8 @@ function UserList({ history }) {
 
   // Confirm Delete After User Login Warning
   const confirmDelete = () => {
-    console.log("Delete", rowsToDelete);
+    dispatch(deleteUsers({ users: rowsToDelete }));
+    setShowModal(false);
   };
 
   return (
@@ -81,6 +99,11 @@ function UserList({ history }) {
         users && (
           <React.Fragment>
             <div className="container mt-4">
+              {/* User Delete handlers */}
+              {loadingDelete && <Loader />}
+              {errorDelete && <Message type="error" message={errorDelete} />}
+
+              {/* Users List */}
               <MUIDataTable
                 title={`Users List (${users.length})`}
                 data={users}
