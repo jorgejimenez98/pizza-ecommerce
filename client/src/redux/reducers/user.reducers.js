@@ -67,10 +67,32 @@ const userListReducer = (state = { users: [] }, action) => {
   }
 };
 
+// USER DELETE REDUCER
+
+const userDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case UserActionTypes.DELETE.REQUEST:
+      return { loading: true };
+
+    case UserActionTypes.DELETE.SUCCESS:
+      return { loading: false, success: true };
+
+    case UserActionTypes.DELETE.ERROR:
+      return { loading: false, error: action.payload };
+
+    case UserActionTypes.DELETE.RESET:
+      return {};
+
+    default:
+      return state;
+  }
+};
+
 const userRedicers = combineReducers({
   create: userRegisterReducer,
   login: userLoginReducer,
   list: userListReducer,
+  delete: userDeleteReducer,
 });
 
 export default userRedicers;
