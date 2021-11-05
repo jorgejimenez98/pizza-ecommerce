@@ -53,3 +53,19 @@ exports.getUserList = async (req, res) => {
     res.status(400).send({ detail: error });
   }
 };
+
+// Delete Selected Users
+exports.deleteUsers = async (req, res) => {
+  try {
+    // Get Users from request
+    const { users } = req.body;
+    // Delete Users
+    await users.map(async (user) => {
+      await User.findByIdAndRemove(user.id);
+    });
+    // Resturn Response
+    res.send("Users Deleted Successfully");
+  } catch (error) {
+    res.status(400).send({ detail: error });
+  }
+};
