@@ -1,5 +1,6 @@
 const Pizza = require("../models/pizzaModel");
 
+// GET PIZZA LIST
 exports.getPizzasList = async (req, res, next) => {
   try {
     // Filter Section
@@ -26,6 +27,7 @@ exports.getPizzasList = async (req, res, next) => {
   }
 };
 
+// REGISTER NEW PIZZA
 exports.registerPizza = async (req, res) => {
   try {
     // Get Data
@@ -58,6 +60,7 @@ exports.registerPizza = async (req, res) => {
   }
 };
 
+// DELETE SELECTED PIZZAS
 exports.deletePizzas = async (req, res) => {
   try {
     // Get Selected Pizzas
@@ -68,6 +71,41 @@ exports.deletePizzas = async (req, res) => {
     });
     // Return Response
     res.send("Pizza Deleted Successfully");
+  } catch (error) {
+    return res.status(400).json({ detail: error });
+  }
+};
+
+// EDIT PIZZA
+exports.editPizza = async (req, res) => {
+  try {
+    // Get request values
+    const pizzaId = req.params.pizzaId;
+    const data = req.body;
+
+    // Validate Pizza Id
+    if (!mongoose.isValidObjectId(pizzaId)) {
+      return res.status(400).send({ detail: "Invalid Pizza ID" });
+    }
+
+    // Update Pizza Values
+    const pizza = await Pizza.findByIdAndUpdate({
+      name: data.name,
+      prices: [
+        {
+          small: data.priceSmall,
+          medium: data.priceMedium,
+          large: data.priceLarge,
+        },
+      ],
+      category: data.category,
+      image: data.imageUrl,
+      description: data.description,
+    });
+
+    // Return Response
+    if (!pizza) res.status(400).json({ detail: "Error to update Pizza" });
+    res.send("Pizza Updated Successfully");
   } catch (error) {
     return res.status(400).json({ detail: error });
   }
