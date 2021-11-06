@@ -25,3 +25,14 @@ exports.getPizzasList = async (req, res, next) => {
     return res.status(400).json({ detail: error });
   }
 };
+
+exports.registerPizza = async (req, res) => {
+  try {
+    // Get Data
+    const data = req.body;
+    console.log(data, "ASAA");
+    res.send("Pizza Add Successfully");
+  } catch (error) {
+    return res.status(400).json({ detail: error });
+  }
+};
