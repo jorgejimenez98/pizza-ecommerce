@@ -1,4 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
+// Redux
+import { useSelector, useDispatch } from "react-redux";
+import { addPizza } from "../../../redux/actions/pizzas.actions";
+import { setSnackbar } from "../../../redux/actions/snackbar.actions";
+import { PizzaActionTypes } from "../../../redux/types/pizzas.types";
+import { Loader, Message } from "../../../containers";
 // Form Control Components
 import {
   NameFormControl,
@@ -14,7 +20,23 @@ import {
   pizzaSchema,
 } from "../../../core/formik-validations";
 
-function AddPizza() {
+function AddPizza({ history }) {
+  const dispatch = useDispatch();
+  // User Login Selector
+  const { user_login } = useSelector((state) => state.users.login);
+
+  useEffect(() => {
+    if (!user_login) {
+      history.push("/");
+    } else if (!user_login.isAdmin) {
+      history.push("/403");
+    }
+    // Clear State
+    return () => {
+      dispatch({ type: PizzaActionTypes.ADD.RESET });
+    };
+  }, [user_login, history, dispatch]);
+
   const formik = useFormik({
     initialValues: initialPizzaValues,
     validationSchema: pizzaSchema,
