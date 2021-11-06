@@ -35,7 +35,13 @@ exports.registerPizza = async (req, res) => {
     let pizza = new Pizza({
       name: data.name,
       varients: ["small", "medium", "large"],
-      prices: [[data.priceSmall, data.priceMedium, data.priceLarge]],
+      prices: [
+        {
+          small: data.priceSmall,
+          medium: data.priceMedium,
+          large: data.priceLarge,
+        },
+      ],
       category: data.category,
       image: data.imageUrl,
       description: data.description,
