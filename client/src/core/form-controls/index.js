@@ -8,6 +8,7 @@ import ShippingAdress2FormControl from "./ShippingAdress2FormControl";
 import CountryCityFormControls from "./CountryCityFormControls";
 import PhoneFormControl from "./PhoneFormControl";
 import CategoryFormControl from "./CategoryFormControl";
+import PriceFormControl from "./PriceFormControl";
 
 export {
   EmailAdressFormControl,
@@ -20,4 +21,5 @@ export {
   CountryCityFormControls,
   PhoneFormControl,
   CategoryFormControl,
+  PriceFormControl,
 };
