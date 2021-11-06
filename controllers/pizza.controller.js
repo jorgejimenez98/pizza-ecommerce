@@ -57,3 +57,18 @@ exports.registerPizza = async (req, res) => {
     return res.status(400).json({ detail: error });
   }
 };
+
+exports.deletePizzas = async (req, res) => {
+  try {
+    // Get Selected Pizzas
+    const { pizzas } = req.body;
+    // Delete Selected Pizzas
+    await pizzas.map(async (pizza) => {
+      await Pizza.findByIdAndRemove(pizza._id);
+    });
+    // Return Response
+    res.send("Pizza Deleted Successfully");
+  } catch (error) {
+    return res.status(400).json({ detail: error });
+  }
+};
