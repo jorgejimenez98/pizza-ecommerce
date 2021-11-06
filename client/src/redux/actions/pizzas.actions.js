@@ -96,3 +96,25 @@ export const getPizzaDetails = (id) => async (dispatch, getState) => {
     });
   }
 };
+
+export const editPizza = (id, values) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: PizzaActionTypes.EDIT.REQUEST,
+    });
+
+    await axios.put(`/api/pizzas/${id}`, values, getConfig(getState()));
+
+    dispatch({
+      type: PizzaActionTypes.EDIT.SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: PizzaActionTypes.EDIT.ERROR,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
