@@ -3,5 +3,6 @@ const router = express.Router();
 const pizzaController = require("../controllers/pizza.controller");
 
 router.get("/getPizzas", pizzaController.getPizzasList);
+router.post("/", pizzaController.registerPizza);
 
 module.exports = router;
