@@ -26,6 +26,7 @@ const BootstrapDialogTitle = (props) => {
       {onClose ? (
         <IconButton
           aria-label="close"
+          className="float-right"
           onClick={onClose}
           sx={{
             position: "absolute",
@@ -46,25 +47,33 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function ImageModal({ pizza, open, handleClose }) {
+export default function ImageModal({
+  pizza,
+  open,
+  handleClose,
+  imageUrl,
+  name,
+}) {
   return (
     <div>
       <BootstrapDialog onClose={handleClose} open={open}>
         <BootstrapDialogTitle onClose={handleClose}>
-          {pizza.name}
+          {name ? name : pizza.name}
         </BootstrapDialogTitle>
         <DialogContent dividers>
           <CardMedia
             component="img"
             height="400"
             with="400"
-            image={pizza.image}
+            image={imageUrl ? imageUrl : pizza.image}
             alt="pizza"
           />
           <CardContent>
-            <Typography variant="body2" color="text.secondary">
-              {pizza.description}
-            </Typography>
+            {!imageUrl && (
+              <Typography variant="body2" color="text.secondary">
+                {pizza.description}
+              </Typography>
+            )}
           </CardContent>
         </DialogContent>
       </BootstrapDialog>
