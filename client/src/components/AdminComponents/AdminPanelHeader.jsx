@@ -25,7 +25,11 @@ export default function AdminPanelHeader() {
         className="bg-white rounded"
       >
         <LinkContainer to={"/admin/panel/users/list"}>
-          <Tab icon={<HiUserGroup size={24} />} label="Users List" />
+          <Tab
+            icon={<HiUserGroup size={24} />}
+            label="Users List"
+            className="mr-2"
+          />
         </LinkContainer>
 
         <LinkContainer to={"/admin/panel/pizzas/list"}>
@@ -33,7 +37,11 @@ export default function AdminPanelHeader() {
         </LinkContainer>
 
         <LinkContainer to={"/admin/panel/pizzas/add"}>
-          <Tab icon={<GrAdd size={24} />} label="Add Pizza" />
+          <Tab
+            icon={<GrAdd size={24} />}
+            label="Add Pizza"
+            className="mr-2 ml-2"
+          />
         </LinkContainer>
 
         <LinkContainer to={"/admin/panel/orders/list"}>
