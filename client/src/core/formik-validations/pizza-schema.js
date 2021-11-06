@@ -2,7 +2,7 @@ import * as yup from "yup";
 
 export const initialPizzaValues = {
   name: "",
-  category: "",
+  category: "veg",
   priceSmall: "",
   priceMedium: "",
   priceLarge: "",
