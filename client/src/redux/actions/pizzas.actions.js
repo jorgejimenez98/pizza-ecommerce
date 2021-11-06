@@ -70,3 +70,29 @@ export const deletePizzas = (values) => async (dispatch, getState) => {
     });
   }
 };
+
+export const getPizzaDetails = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: PizzaActionTypes.DETAILS.REQUEST,
+    });
+
+    const { data } = await axios.get(
+      `/api/pizzas/${id}`,
+      getConfig(getState())
+    );
+
+    dispatch({
+      type: PizzaActionTypes.DETAILS.SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PizzaActionTypes.DETAILS.ERROR,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
