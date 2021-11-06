@@ -7,12 +7,10 @@ function CategoryFormControl({ formik }) {
       <Form.Label className="float-left">Category</Form.Label>
 
       <select
-        class="form-control"
+        className="form-control"
         name="category"
         value={formik.values.category}
         onChange={formik.handleChange}
-        isInvalid={formik.touched.category && Boolean(formik.errors.category)}
-        isValid={formik.touched.category && !Boolean(formik.errors.category)}
       >
         <option value="veg">Vegan</option>
         <option value="nonveg">Non Veg</option>
