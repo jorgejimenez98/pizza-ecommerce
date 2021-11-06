@@ -9,6 +9,8 @@ import CountryCityFormControls from "./CountryCityFormControls";
 import PhoneFormControl from "./PhoneFormControl";
 import CategoryFormControl from "./CategoryFormControl";
 import PriceFormControl from "./PriceFormControl";
+import ImageurlFormControl from "./ImageurlFormControl";
+import DescriptionFormControl from "./DescriptionFormControl";
 
 export {
   EmailAdressFormControl,
@@ -22,4 +24,6 @@ export {
   PhoneFormControl,
   CategoryFormControl,
   PriceFormControl,
+  ImageurlFormControl,
+  DescriptionFormControl,
 };
