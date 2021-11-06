@@ -43,9 +43,31 @@ const pizzasAddReducer = (state = {}, action) => {
   }
 };
 
+// PIZZAS DELETE REDUCER
+
+const pizzasDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PizzaActionTypes.DELETE.REQUEST:
+      return { loading: true };
+
+    case PizzaActionTypes.DELETE.SUCCESS:
+      return { loading: false, success: true };
+
+    case PizzaActionTypes.DELETE.ERROR:
+      return { loading: false, error: action.payload };
+
+    case PizzaActionTypes.DELETE.RESET:
+      return {};
+
+    default:
+      return state;
+  }
+};
+
 const pizzasReducers = combineReducers({
   list: pizzasListReducer,
   add: pizzasAddReducer,
+  delete: pizzasDeleteReducer,
 });
 
 export default pizzasReducers;
