@@ -48,3 +48,25 @@ export const addPizza = (values) => async (dispatch, getState) => {
     });
   }
 };
+
+export const deletePizzas = (values) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: PizzaActionTypes.DELETE.REQUEST,
+    });
+
+    await axios.post(`/api/pizzas/deletePizzas`, values, getConfig(getState()));
+
+    dispatch({
+      type: PizzaActionTypes.DELETE.SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: PizzaActionTypes.DELETE.ERROR,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
