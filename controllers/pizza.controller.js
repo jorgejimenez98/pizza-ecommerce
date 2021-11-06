@@ -110,3 +110,25 @@ exports.editPizza = async (req, res) => {
     return res.status(400).json({ detail: error });
   }
 };
+
+// GET PIZZA DETAILS
+exports.getPizzaDetails = async (req, res) => {
+  try {
+    // Get request values
+    const pizzaId = req.params.pizzaId;
+
+    // Validate Pizza Id
+    if (!mongoose.isValidObjectId(pizzaId)) {
+      return res.status(400).send({ detail: "Invalid Pizza ID" });
+    }
+
+    // Get Pizza by Id
+    const pizza = await Pizza.findById(pizzaId);
+
+    // Return Response
+    if (!pizza) res.status(400).json({ detail: "Error to get Pizza" });
+    res.send(pizza);
+  } catch (error) {
+    return res.status(400).json({ detail: error });
+  }
+};
