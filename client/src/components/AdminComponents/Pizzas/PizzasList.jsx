@@ -1,15 +1,34 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { pizzacolumns, pizzalistOptions } from "../../../core/mui-datatable";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
-import { getPizzasList } from "../../../redux/actions/pizzas.actions";
+import {
+  getPizzasList,
+  deletePizzas,
+} from "../../../redux/actions/pizzas.actions";
+import { setSnackbar } from "../../../redux/actions/snackbar.actions";
+import { PizzaActionTypes } from "../../../redux/types/pizzas.types";
 // Components
-import { Loader, Message } from "../../../containers";
+import { Loader, Message, ConfirmationDialog } from "../../../containers";
+import MUIDataTable from "mui-datatables";
+import { FaTrash } from "react-icons/fa";
+import { IconButton, Tooltip } from "@mui/material";
 
 function PizzasList({ history }) {
   const dispatch = useDispatch();
 
+  const [showModal, setShowModal] = useState(false);
+  const [rowsToDelete, setRowsToDelete] = useState([]);
+
   // User Login Selector
   const { user_login } = useSelector((state) => state.users.login);
+
+  // Pizza Delete Selector
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = useSelector((state) => state.pizzas.delete);
 
   // Pizza List Selector
   const {
@@ -18,8 +37,6 @@ function PizzasList({ history }) {
     pizzas,
   } = useSelector((state) => state.pizzas.list);
 
-  console.log("OK", pizzas);
-
   useEffect(() => {
     if (!user_login) {
       history.push("/");
@@ -27,8 +44,53 @@ function PizzasList({ history }) {
       history.push("/403");
     } else {
       dispatch(getPizzasList());
+
+      if (successDelete) {
+        const message = "Pizzas Delete Successfully";
+        dispatch(setSnackbar(true, "success", message));
+        dispatch({ type: PizzaActionTypes.DELETE.RESET });
+      }
     }
-  }, [dispatch, user_login, history]);
+
+    // On Destroy
+    return () => {
+      dispatch({ type: PizzaActionTypes.DELETE.RESET });
+      dispatch({ type: PizzaActionTypes.PIZZAS_LIST.RESET });
+    };
+  }, [dispatch, user_login, history, successDelete]);
+
+  // Manage Custom Toolbar Select
+  pizzalistOptions.customToolbarSelect = ({ data }) => {
+    return (
+      <React.Fragment>
+        <Tooltip title="Delete Selected Pizzas" className="mr-2">
+          <IconButton
+            onClick={() => {
+              let items = [];
+              data.forEach((element) => {
+                items.push(pizzas[element.dataIndex]);
+              });
+              setRowsToDelete(items);
+              setShowModal(true);
+            }}
+          >
+            <FaTrash />
+          </IconButton>
+        </Tooltip>
+      </React.Fragment>
+    );
+  };
+
+  // Function to Close Modal
+  const closeDialog = () => {
+    setShowModal(false);
+  };
+
+  // Confirm Delete After User Login Warning
+  const confirmDelete = () => {
+    dispatch(deletePizzas({ pizzas: rowsToDelete }));
+    setShowModal(false);
+  };
 
   return (
     <div className="container text-center">
@@ -39,7 +101,26 @@ function PizzasList({ history }) {
       ) : (
         pizzas && (
           <React.Fragment>
-            <div>okok</div>
+            <div className="m-5">
+              {/* DELETE Sections */}
+              {loadingDelete && <Loader />}
+              {errorDelete && <Message type={"error"} message={errorDelete} />}
+
+              {/* Pizzas List */}
+              <MUIDataTable
+                title={`Pizza List (${pizzas.length})`}
+                data={pizzas}
+                columns={pizzacolumns}
+                options={pizzalistOptions}
+              />
+            </div>
+
+            <ConfirmationDialog
+              open={showModal}
+              closeDialog={closeDialog}
+              agreeConfirm={confirmDelete}
+              type="Pizzas"
+            />
           </React.Fragment>
         )
       )}
