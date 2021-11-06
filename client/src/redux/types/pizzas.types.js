@@ -5,6 +5,14 @@ const LIST = {
   RESET: "PIZZAS_LIST_RESET",
 };
 
+const ADD = {
+  REQUEST: "PIZZAS_ADD_REQUEST",
+  SUCCESS: "PIZZAS_ADD_SUCCESS",
+  ERROR: "PIZZAS_ADD_ERROR",
+  RESET: "PIZZAS_ADD_RESET",
+};
+
 export const PizzaActionTypes = {
   PIZZAS_LIST: LIST,
+  ADD: ADD,
 };
