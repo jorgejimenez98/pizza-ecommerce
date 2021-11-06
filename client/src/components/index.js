@@ -7,6 +7,7 @@ import Filter from "./Filter";
 import AdminPanelHeader from "./AdminComponents/AdminPanelHeader";
 import OrdersList from "./AdminComponents/Orders/OrdersList";
 import AddPizza from "./AdminComponents/Pizzas/AddPizza";
+import EditPizza from "./AdminComponents/Pizzas/EditPizza";
 import PizzasList from "./AdminComponents/Pizzas/PizzasList";
 import UserList from "./AdminComponents/Users/UserList";
 
@@ -22,4 +23,5 @@ export {
   AddPizza,
   PizzasList,
   UserList,
+  EditPizza,
 };
