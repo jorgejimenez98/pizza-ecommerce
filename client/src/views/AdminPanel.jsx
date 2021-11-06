@@ -3,7 +3,13 @@ import { useSelector } from "react-redux";
 import { AdminPanelHeader } from "../components";
 import { Switch, Route, Redirect } from "react-router-dom";
 // Components
-import { UserList, AddPizza, OrdersList, PizzasList } from "../components";
+import {
+  UserList,
+  AddPizza,
+  OrdersList,
+  PizzasList,
+  EditPizza,
+} from "../components";
 
 function AdminPanel({ history }) {
   const { user_login } = useSelector((state) => state.users.login);
@@ -32,6 +38,10 @@ function AdminPanel({ history }) {
         <Route
           path={"/admin/panel/pizzas/add"}
           render={(props) => <AddPizza {...props} />}
+        />
+        <Route
+          path={"/admin/panel/pizzas/edit/:pizzaId"}
+          render={(props) => <EditPizza {...props} />}
         />
         <Route
           path={"/admin/panel/orders/list"}
