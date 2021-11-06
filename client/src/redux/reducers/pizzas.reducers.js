@@ -64,10 +64,32 @@ const pizzasDeleteReducer = (state = {}, action) => {
   }
 };
 
+// PIZZAS DETAILS REDUCER
+
+const pizzasDetailsReducer = (state = { pizza: {} }, action) => {
+  switch (action.type) {
+    case PizzaActionTypes.DETAILS.REQUEST:
+      return { loading: true };
+
+    case PizzaActionTypes.DETAILS.SUCCESS:
+      return { loading: false, pizza: action.payload };
+
+    case PizzaActionTypes.DETAILS.ERROR:
+      return { loading: false, error: action.payload };
+
+    case PizzaActionTypes.DETAILS.RESET:
+      return { pizza: {} };
+
+    default:
+      return state;
+  }
+};
+
 const pizzasReducers = combineReducers({
   list: pizzasListReducer,
   add: pizzasAddReducer,
   delete: pizzasDeleteReducer,
+  details: pizzasDetailsReducer,
 });
 
 export default pizzasReducers;
