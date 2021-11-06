@@ -22,31 +22,44 @@ import {
 
 function AddPizza({ history }) {
   const dispatch = useDispatch();
+
   // User Login Selector
   const { user_login } = useSelector((state) => state.users.login);
+
+  // Add Pizza Selector
+  const { loading, error, success } = useSelector((state) => state.pizzas.add);
 
   useEffect(() => {
     if (!user_login) {
       history.push("/");
     } else if (!user_login.isAdmin) {
       history.push("/403");
+    } else {
+      if (success) {
+        const message = "Pizza Added Successfully";
+        dispatch(setSnackbar(true, "success", message));
+        dispatch({ type: PizzaActionTypes.ADD.RESET });
+        history.push("/admin/panel/pizzas/list");
+      }
     }
     // Clear State
     return () => {
       dispatch({ type: PizzaActionTypes.ADD.RESET });
     };
-  }, [user_login, history, dispatch]);
+  }, [user_login, history, dispatch, success]);
 
   const formik = useFormik({
     initialValues: initialPizzaValues,
     validationSchema: pizzaSchema,
     onSubmit: (values) => {
-      console.log("AAAA", values);
+      dispatch(addPizza(values));
     },
   });
 
   return (
     <div className="container p-lg-5">
+      {error && <Message type="error" message={error} />}
+
       <form onSubmit={formik.handleSubmit}>
         <div className="row">
           <div className="col-md-6">
@@ -98,6 +111,7 @@ function AddPizza({ history }) {
 
         {/* Buttom */}
         <div className="text-right">
+          {loading && <Loader />}
           <button type="submit" className="btn btn-primary">
             Submit
           </button>
