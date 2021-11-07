@@ -45,7 +45,7 @@ const userOrdersReducer = (state = { orders: [] }, action) => {
 
 //  ORDERS LIST REDUCER
 
-const userOrdersReducer = (state = { orders: [] }, action) => {
+const ordersListReducer = (state = { orders: [] }, action) => {
   switch (action.type) {
     case OrderActionTypes.LIST.REQUEST:
       return { loading: true };
@@ -67,6 +67,7 @@ const userOrdersReducer = (state = { orders: [] }, action) => {
 const orderReducers = combineReducers({
   add: addOrderReducer,
   userOrders: userOrdersReducer,
+  list: ordersListReducer,
 });
 
 export default orderReducers;
