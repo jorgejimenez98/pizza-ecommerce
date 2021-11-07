@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
-import { getPizzaDetails } from "../../../redux/actions/pizzas.actions";
+import {
+  getPizzaDetails,
+  editPizza,
+} from "../../../redux/actions/pizzas.actions";
 import { setSnackbar } from "../../../redux/actions/snackbar.actions";
 import { PizzaActionTypes } from "../../../redux/types/pizzas.types";
 import { Loader, Message } from "../../../containers";
@@ -32,12 +35,19 @@ function EditPizza({ history, match }) {
     (state) => state.pizzas.details
   );
 
+  // EDIT Pizza Selector
+  const {
+    loading: loadingEdit,
+    error: errorEdit,
+    success,
+  } = useSelector((state) => state.pizzas.edit);
+
   // Initialize the formik values
   initialPizzaValues.name = pizza?.name;
   initialPizzaValues.category = pizza?.category;
-  initialPizzaValues.priceSmall = pizza?.prices[0].small;
-  initialPizzaValues.priceMedium = pizza?.prices[0].medium;
-  initialPizzaValues.priceLarge = pizza?.prices[0].large;
+  initialPizzaValues.priceSmall = pizza?.prices ? pizza?.prices[0].small : 0;
+  initialPizzaValues.priceMedium = pizza?.prices ? pizza?.prices[0].medium : 0;
+  initialPizzaValues.priceLarge = pizza?.prices ? pizza?.prices[0].large : 0;
   initialPizzaValues.imageUrl = pizza?.image;
   initialPizzaValues.description = pizza?.description;
 
@@ -50,18 +60,25 @@ function EditPizza({ history, match }) {
       if (pizzaId) {
         dispatch(getPizzaDetails(pizzaId));
       }
+
+      if (success) {
+        const message = "Pizza Updated Successfully";
+        dispatch(setSnackbar(true, "success", message));
+        dispatch({ type: PizzaActionTypes.EDIT.RESET });
+        history.push("/admin/panel/pizzas/list");
+      }
     }
     // Clear State
     return () => {
-      dispatch({ type: PizzaActionTypes.ADD.RESET });
+      dispatch({ type: PizzaActionTypes.EDIT.RESET });
     };
-  }, [user_login, history, dispatch, pizzaId]);
+  }, [user_login, history, dispatch, pizzaId, success]);
 
   const formik = useFormik({
     initialValues: initialPizzaValues,
     validationSchema: pizzaSchema,
     onSubmit: (values) => {
-      console.log("EDit", values);
+      dispatch(editPizza(pizzaId, values));
     },
   });
 
@@ -74,6 +91,7 @@ function EditPizza({ history, match }) {
       ) : (
         pizza && (
           <form onSubmit={formik.handleSubmit}>
+            {errorEdit && <Message type="error" message={errorEdit} />}
             <div className="row">
               <div className="col-md-6">
                 {/* Name */}
@@ -124,6 +142,7 @@ function EditPizza({ history, match }) {
 
             {/* Buttom */}
             <div className="text-right">
+              {loadingEdit && <Loader />}
               <button type="submit" className="btn btn-primary">
                 Edit
               </button>
