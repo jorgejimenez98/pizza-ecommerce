@@ -1,5 +1,6 @@
 const Order = require("../models/order.model");
 const OrderItem = require("../models/order-item.model");
+const User = require("../models/userModel");
 
 // Register User
 exports.postUserOrder = async (req, res) => {
@@ -67,7 +68,7 @@ exports.postUserOrder = async (req, res) => {
   }
 };
 
-// Register User
+// GEt user Orders
 exports.getUserOrders = async (req, res) => {
   try {
     const { userId } = req.params;
@@ -80,6 +81,20 @@ exports.getUserOrders = async (req, res) => {
     if (!userOrders)
       res.status(400).send({ detail: "Error to get User Orders" });
     res.send(userOrders);
+  } catch (error) {
+    res.status(404).send({ detail: error.message });
+  }
+};
+
+// GET Orders List
+exports.getOrdersList = async (req, res) => {
+  try {
+    const orders = await Order.find({})
+      .populate({ path: "user", model: User, select: "name email" })
+      .select("_id user totalPrice status dateOrdered")
+      .sort("-dateOrdered");
+    if (!orders) res.status(400).send({ detail: "Error to get Orders" });
+    res.send(orders);
   } catch (error) {
     res.status(404).send({ detail: error.message });
   }
