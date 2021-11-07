@@ -1,5 +1,6 @@
 import { OrderActionTypes } from "../types/order.types";
 import axios from "axios";
+import { getConfig } from "../settings";
 
 export const addUserOrder = (values) => async (dispatch) => {
   try {
@@ -69,13 +70,13 @@ export const getOrdersList = () => async (dispatch) => {
   }
 };
 
-export const editOrder = (id) => async (dispatch) => {
+export const editOrder = (id) => async (dispatch, getState) => {
   try {
     dispatch({
       type: OrderActionTypes.EDIT.REQUEST,
     });
 
-    await axios.put(`/api/orders/${id}`);
+    await axios.put(`/api/orders/${id}`, {}, getConfig(getState()));
 
     dispatch({
       type: OrderActionTypes.EDIT.SUCCESS,
