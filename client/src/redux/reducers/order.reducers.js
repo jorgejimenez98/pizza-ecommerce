@@ -57,6 +57,27 @@ const ordersListReducer = (state = { orders: [] }, action) => {
       return { loading: false, error: action.payload };
 
     case OrderActionTypes.LIST.RESET:
+      return { orders: [] };
+
+    default:
+      return state;
+  }
+};
+
+//  ORDERS EDIT REDUCER
+
+const ordersEditReducer = (state = {}, action) => {
+  switch (action.type) {
+    case OrderActionTypes.EDIT.REQUEST:
+      return { loading: true };
+
+    case OrderActionTypes.EDIT.SUCCESS:
+      return { loading: false, success: true };
+
+    case OrderActionTypes.EDIT.ERROR:
+      return { loading: false, error: action.payload };
+
+    case OrderActionTypes.EDIT.RESET:
       return {};
 
     default:
@@ -68,6 +89,7 @@ const orderReducers = combineReducers({
   add: addOrderReducer,
   userOrders: userOrdersReducer,
   list: ordersListReducer,
+  edit: ordersEditReducer,
 });
 
 export default orderReducers;
