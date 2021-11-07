@@ -20,7 +20,6 @@ export const orderscolumns = [
       sort: false,
       viewColumns: false,
       customBodyRender: (value, tableMeta) => {
-        const name = tableMeta.rowData[2];
         return <UserColumn user={value} />;
       },
     },
@@ -36,7 +35,7 @@ export const orderscolumns = [
   },
   {
     name: "dateOrdered",
-    label: "Prices",
+    label: "Date Ordered",
     options: {
       filter: false,
       sort: false,
