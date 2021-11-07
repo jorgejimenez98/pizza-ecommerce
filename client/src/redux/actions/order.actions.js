@@ -45,3 +45,26 @@ export const getUserOrders = (userId) => async (dispatch) => {
     });
   }
 };
+
+export const getOrdersList = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: OrderActionTypes.LIST.REQUEST,
+    });
+
+    const { data } = await axios.get(`/api/orders`);
+
+    dispatch({
+      type: OrderActionTypes.LIST.SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: OrderActionTypes.LIST.ERROR,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
