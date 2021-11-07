@@ -10,14 +10,14 @@ function OrdersList({ history }) {
 
   // User Info Selector:
   const { user_login } = useSelector((state) => state.users.login);
-  // Get User Orders Selector
-  const { loading, error, orders } = useSelector(
-    (state) => state.orders.list
-  );
+  // Get Orders Selector
+  const { loading, error, orders } = useSelector((state) => state.orders.list);
 
   useEffect(() => {
     if (!user_login) {
       history.push("/");
+    } else if (!user_login.isAdmin) {
+      history.push("/403");
     } else {
       dispatch(getOrdersList());
     }
