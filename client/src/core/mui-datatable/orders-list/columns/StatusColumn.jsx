@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { editOrder } from "../../../../redux/actions/order.actions";
+import { OrderActionTypes } from "../../../../redux/types/order.types";
+import { useDispatch, useSelector } from "react-redux";
 
 function StatusColumn({ status, orderId }) {
+  const dispatch = useDispatch();
+
+  const { success } = useSelector((state) => state.orders.edit);
+
+  useEffect(() => {
+    if (success) {
+      dispatch({ type: OrderActionTypes.EDIT.REQUEST });
+    }
+  }, [success, dispatch]);
+
   const handleClick = () => {
-    console.log("Deliver ", orderId);
+    dispatch(editOrder(orderId));
   };
+
   return (
-    <div>
+    <React.Fragment>
       {status === "Pending" ? (
         <button type="button" onClick={handleClick} className="btn btn-primary">
           Peding
@@ -13,7 +27,7 @@ function StatusColumn({ status, orderId }) {
       ) : (
         <div className="btn btn-outline-secondary">Delivered</div>
       )}
-    </div>
+    </React.Fragment>
   );
 }
 
