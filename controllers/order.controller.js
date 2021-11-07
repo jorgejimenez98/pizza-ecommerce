@@ -99,3 +99,22 @@ exports.getOrdersList = async (req, res) => {
     res.status(404).send({ detail: error.message });
   }
 };
+
+// UPDATE Order Status
+exports.changeOrderStatus = async (req, res) => {
+  try {
+    // Get Order ID
+    const orderId = req.params.orderId;
+
+    // Change Order Status
+    const order = await Order.findByIdAndUpdate(orderId, {
+      status: "Delivered",
+    });
+
+    // Return Response
+    if (!order) res.status(400).send({ detail: "Error to update order" });
+    res.send("Order Changed Successfully");
+  } catch (error) {
+    res.status(404).send({ detail: error.message });
+  }
+};
