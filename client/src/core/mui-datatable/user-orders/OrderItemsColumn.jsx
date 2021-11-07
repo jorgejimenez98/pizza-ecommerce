@@ -7,13 +7,14 @@ import ListItemText from "@mui/material/ListItemText";
 function OrderItemsColumn({ orderItems }) {
   return (
     <List>
-      {orderItems.map((item, i) => {
-        const totalPrice = item.quantity * item.pizza.prices[0][item.varient];
+      {orderItems?.map((item, i) => {
+        const totalPrice =
+          item?.quantity * item?.pizza?.prices[0][item.varient];
         return (
           <ListItem disablePadding key={i}>
             <ListItemButton>
               <ListItemText
-                primary={`${item.pizza.name}: [${item.varient}] * ${item.quantity} = ${totalPrice}`}
+                primary={`${item?.pizza?.name}: [${item?.varient}] * ${item?.quantity} = ${totalPrice}`}
               />
             </ListItemButton>
           </ListItem>
