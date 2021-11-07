@@ -43,6 +43,27 @@ const userOrdersReducer = (state = { orders: [] }, action) => {
   }
 };
 
+//  ORDERS LIST REDUCER
+
+const userOrdersReducer = (state = { orders: [] }, action) => {
+  switch (action.type) {
+    case OrderActionTypes.LIST.REQUEST:
+      return { loading: true };
+
+    case OrderActionTypes.LIST.SUCCESS:
+      return { loading: false, orders: action.payload };
+
+    case OrderActionTypes.LIST.ERROR:
+      return { loading: false, error: action.payload };
+
+    case OrderActionTypes.LIST.RESET:
+      return {};
+
+    default:
+      return state;
+  }
+};
+
 const orderReducers = combineReducers({
   add: addOrderReducer,
   userOrders: userOrdersReducer,
