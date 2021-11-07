@@ -103,7 +103,7 @@ export const editPizza = (id, values) => async (dispatch, getState) => {
       type: PizzaActionTypes.EDIT.REQUEST,
     });
 
-    await axios.put(`/api/pizzas/${id}`, values, getConfig(getState()));
+    await axios.put(`/api/pizzas/edit/${id}`, values, getConfig(getState()));
 
     dispatch({
       type: PizzaActionTypes.EDIT.SUCCESS,
