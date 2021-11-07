@@ -68,3 +68,25 @@ export const getOrdersList = () => async (dispatch) => {
     });
   }
 };
+
+export const editOrder = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: OrderActionTypes.EDIT.REQUEST,
+    });
+
+    await axios.put(`/api/orders/${id}`);
+
+    dispatch({
+      type: OrderActionTypes.EDIT.SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: OrderActionTypes.EDIT.ERROR,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
