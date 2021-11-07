@@ -90,7 +90,7 @@ exports.editPizza = async (req, res) => {
     }
 
     // Update Pizza Values
-    const pizza = await Pizza.findByIdAndUpdate({
+    const pizza = await Pizza.findByIdAndUpdate(pizzaId, {
       name: data.name,
       prices: [
         {
